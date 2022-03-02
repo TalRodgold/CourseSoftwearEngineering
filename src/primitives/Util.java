@@ -1,6 +1,4 @@
-package targil_1;
-
-//package primitives;
+package primitives;
 
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
@@ -72,4 +70,3 @@ public abstract class Util {
     }
 
 }
-
