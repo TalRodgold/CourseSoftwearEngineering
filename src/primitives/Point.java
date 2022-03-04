@@ -1,15 +1,65 @@
 package primitives;
-
 import java.util.Objects;
 
+/**
+ *  This class will serve all primitive classes based on a point
+ */
 public class Point {
+
     protected Double3 xyz;
 
+    /**
+     * constructor
+     * @param xyz a double3 type
+     */
     public Point(Double3 xyz) {
         this.xyz = xyz;
     }
+
+    /**
+     * constructor
+     * @param x coordinate x
+     * @param y coordinate y
+     * @param z coordinate z
+     */
     public Point(double x, double y, double z) {
        xyz = new Double3(x,y,z);
+    }
+
+    /**
+     * new point based on 2 points
+     * @param v vector
+     * @return
+     */
+    public Point add(Vector v){
+       return new Point(xyz.add(v.xyz));
+    }
+
+    /**
+     * new vector based on 2 points
+     * @param p point
+     * @return
+     */
+    public Vector subtract( Point p){
+        return new Vector((xyz.subtract(p.xyz)));
+        }
+
+    /**
+     * calculate distance sqrt
+     * @param p point
+     * @return
+     */
+    public double distanceSquared( Point p){
+        return ((this.xyz.d1 - p.xyz.d1) * (this.xyz.d1 - p.xyz.d1)) + ((this.xyz.d2 - p.xyz.d2) * (this.xyz.d2 - p.xyz.d2)) + ((this.xyz.d3 - p.xyz.d3) * (this.xyz.d3 - p.xyz.d3));
+    }
+
+    /**
+     * calculate distance
+     * @param p point
+     * @return
+     */
+    public double distance(Point p){
+        return Math.sqrt(this.distanceSquared(p));
     }
 
     @Override
@@ -19,18 +69,7 @@ public class Point {
         Point point = (Point) o;
         return Objects.equals(xyz, point.xyz);
     }
-    public Point add(Vector v){
-       return new Point(xyz.add(v.xyz));
-    }
-    public Vector subtract( Point p){
-        return new Vector((xyz.subtract(p.xyz)));
-        }
-    public double distanceSquared( Point p){
-        return ((this.xyz.d1 - p.xyz.d1) * (this.xyz.d1 - p.xyz.d1)) + ((this.xyz.d2 - p.xyz.d2) * (this.xyz.d2 - p.xyz.d2)) + ((this.xyz.d3 - p.xyz.d3) * (this.xyz.d3 - p.xyz.d3));
-    }
-    public double distance(Point p){
-        return Math.sqrt(this.distanceSquared(p));
-    }
+
     @Override
     public String toString() {
         return "Point{" +

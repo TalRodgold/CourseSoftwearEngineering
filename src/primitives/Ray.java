@@ -1,20 +1,36 @@
 package primitives;
-
 import java.util.Objects;
 
+/**
+ * class for a ray
+ */
 public class Ray {
+
     private Point p0;
     private Vector dir;
 
+    /**
+     * constructor
+     * @param p0 point
+     * @param dir vector
+     */
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
     }
 
+    /**
+     * get point
+     * @return
+     */
     public Point getP0() {
         return p0;
     }
 
+    /**
+     * get vector
+     * @return
+     */
     public Vector getDir() {
         return dir;
     }
