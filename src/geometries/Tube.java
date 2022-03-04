@@ -1,10 +1,19 @@
 package geometries;
 import primitives.*;
+
+/**
+ * Class Tube
+ */
 public class Tube implements Geometry {
 
     protected Ray axisRay;
     protected double radius;
 
+    /**
+     *  ctor
+     * @param axisRay Ray
+     * @param radius double
+     */
     public Tube(Ray axisRay, double radius) {
         this.axisRay = axisRay;
         this.radius = radius;
@@ -18,6 +27,11 @@ public class Tube implements Geometry {
         return radius;
     }
 
+    /**
+     *
+     * @param p Point
+     * @return the normal vector to the tube
+     */
     @Override
     public Vector getNormal(Point p) {
         return null;
