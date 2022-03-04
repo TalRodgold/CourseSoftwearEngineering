@@ -28,11 +28,6 @@ public class Cylinder extends Tube{
         return height;
     }
 
-    /**
-     *
-     * @param p Point
-     * @return The Normal to the vector
-     */
     @Override
     public Vector getNormal(Point p) {
         return super.getNormal(p);

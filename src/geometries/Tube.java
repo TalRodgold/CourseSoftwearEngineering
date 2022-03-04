@@ -27,11 +27,6 @@ public class Tube implements Geometry {
         return radius;
     }
 
-    /**
-     *
-     * @param p Point
-     * @return the normal vector to the tube
-     */
     @Override
     public Vector getNormal(Point p) {
         return null;

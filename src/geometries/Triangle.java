@@ -15,11 +15,6 @@ public class Triangle extends Polygon{
         super(vertices);
     }
 
-    /**
-     *
-     * @param point Point
-     * @return calls the father getNormal func
-     */
     @Override
     public Vector getNormal(Point point) {
         return super.getNormal(point);
