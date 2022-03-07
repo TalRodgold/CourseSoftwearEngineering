@@ -59,4 +59,5 @@ class VectorTest {
         Vector v3 = new Vector(5,5,5);
         assertEquals(v1.add(v2), v3, "Add Vector to Vector Failed");
     }
+
 }
