@@ -7,7 +7,9 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TriangleTest {
-
+    /**
+     * Checking that GetNormal really returns a normal vector
+     */
     @Test
     void getNormal() {
         // ============ Equivalence Partitions Tests ==============

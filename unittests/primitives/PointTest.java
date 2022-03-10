@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PointTest {
-
+    /**
+     * Adding a vector to a point and getting correct point
+     */
     @Test
     void add() {
         Point p1 = new Point(1,1,1);
@@ -14,6 +16,9 @@ class PointTest {
         assertEquals(p1.add(v1), p2, "Add point to vector Failed");
     }
 
+    /**
+     * Subtracting a point from a point and getting correct vector
+     */
     @Test
     void subtract() {
         Point p1 = new Point(1,1,1);
@@ -22,6 +27,9 @@ class PointTest {
         assertEquals(p2.subtract(p1), v1, "Subtract point from point Failed");
     }
 
+    /**
+     * Distance squared between points
+     */
     @Test
     void distanceSquared() {
         Point p1 = new Point(1,1,1);
@@ -31,6 +39,9 @@ class PointTest {
 
     }
 
+    /**
+     * Distance between points
+     */
     @Test
     void distance() {
         Point p1 = new Point(1,1,1);

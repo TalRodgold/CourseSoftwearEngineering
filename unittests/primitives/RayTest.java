@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RayTest {
-
+    /**
+     * Receiving the correct starting point of the ray
+     */
     @Test
     void getP0() {
         Point p = new Point(1,2,3);
@@ -14,6 +16,9 @@ class RayTest {
         assertEquals(r.getP0(), p, "Get p0 Failed");
     }
 
+    /**
+     * Receiving the correct direction of the ray
+     */
     @Test
     void getDir() {
         Point p = new Point(1,2,3);

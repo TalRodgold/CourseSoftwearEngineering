@@ -7,7 +7,9 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SphereTest {
-
+    /**
+     * Checking that GetNormal really returns a normal vector
+     */
     @Test
     void getNormal() {
         Point p1 =  new Point(0, 0, 1);

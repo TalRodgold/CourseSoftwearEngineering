@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
 
 class VectorTest {
-
+    /**
+     * test construction of Vector 0
+     */
     @Test
     void testVectorZero() {
         try { // test zero vector
@@ -17,6 +19,9 @@ class VectorTest {
         }
     }
 
+    /**
+     * multiply vector by number and get correct vector
+     */
     @Test
     void scale() {
         Vector v1 = new Vector(2,3,4);
@@ -25,6 +30,9 @@ class VectorTest {
         assertEquals(v2, v3, "Scale of Vector Failed");
     }
 
+    /**
+     * dot product between 2 vectors and checking for ortogonal vectors which will produce vector 0
+     */
     @Test
     void dotProduct() {
         Vector v1 = new Vector(2,3,4);
@@ -36,6 +44,10 @@ class VectorTest {
         assertTrue(Util.isZero(v3.dotProduct(v4)), "ERROR: dotProduct() for orthogonal vectors is not zero");
     }
 
+    /**
+     * cross product between 2 vectors and getting outcome vector
+     * and checking for all kinds of edge-cases
+     */
     @Test
     void crossProduct() {
         Vector v1 = new Vector(1, 2, 3);
@@ -66,6 +78,9 @@ class VectorTest {
         assertTrue(!(v.dotProduct(u) < 0), "ERROR: the normalized vector is opposite to the original one");
     }
 
+    /**
+     * Length squared of vector
+     */
     @Test
     void lengthSquared() {
         Vector v1 = new Vector(2,3,4);
@@ -73,6 +88,9 @@ class VectorTest {
         assertEquals(v1.lengthSquared(), d, "Length_Squared of Vector Failed");
     }
 
+    /**
+     * Length of vector
+     */
     @Test
     void length() {
         Vector v1 = new Vector(2,3,6);
@@ -80,6 +98,9 @@ class VectorTest {
         assertEquals(v1.length(), d, "Length of Vector Failed");
     }
 
+    /**
+     * check if normalize really gives correct outcome-the Normal vector
+     */
     @Test
     void normalize() {
         Vector v1 = new Vector(2,3,6);
@@ -88,6 +109,9 @@ class VectorTest {
         assertEquals(v1.normalize(), v3, "Normalize of Vector Failed");
     }
 
+    /**
+     * Add vector to vector and getting correct outcome vector
+     */
     @Test
     void add() {
         Vector v1 = new Vector(2,2,2);

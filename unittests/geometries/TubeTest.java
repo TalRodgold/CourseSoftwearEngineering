@@ -15,6 +15,10 @@ public class TubeTest {
         Tube tb = new Tube(ray, 1);
 
     }
+
+    /**
+     * Checking that GetNormal really returns a normal vector
+     */
     @Test
     void getNormal() {
         Ray ray = new Ray(new Point(0,1,0), new Vector(0,1,0));

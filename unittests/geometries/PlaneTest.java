@@ -7,7 +7,9 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlaneTest {
-
+    /**
+     * Checking if the points are on the same line
+     */
     @Test
     void testPointsOnSameLine() {
         try {
@@ -20,6 +22,9 @@ class PlaneTest {
         }
     }
 
+    /**
+     * Checking that GetNormal really returns a normal vector
+     */
     @Test
     void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
