@@ -21,7 +21,7 @@ public class Ray {
 
     /**
      * get point
-     * @return
+     * @return Point
      */
     public Point getP0() {
         return p0;
@@ -29,7 +29,7 @@ public class Ray {
 
     /**
      * get vector
-     * @return
+     * @return Vector
      */
     public Vector getDir() {
         return dir;

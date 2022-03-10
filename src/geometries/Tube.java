@@ -29,8 +29,17 @@ public class Tube implements Geometry {
 
     @Override
     public Vector getNormal(Point p) {
-        return null;
-    }
+
+        Point po = axisRay.getP0();
+        Vector v = axisRay.getDir();
+        Vector p1 = p.subtract(po);
+        double t = v.dotProduct(p1);
+        Point O = po.add(p1.scale(t));
+        if (O.equals(p)) {
+            throw new IllegalArgumentException("point cannot be equal to O");
+        }
+        Vector n = p.subtract(O);
+        return n.normalize();    }
 
     @Override
     public String toString() {

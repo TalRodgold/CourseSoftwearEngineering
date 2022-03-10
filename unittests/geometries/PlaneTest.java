@@ -9,19 +9,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlaneTest {
 
     @Test
-    void getQ0() {
-    }
-
-    @Test
-    void getNormal() {
-        // ============ Equivalence Partitions Tests ==============
-        // TC01: There is a simple single test here
-        Plane pl = new Plane(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1));
-        double sqrt3 = Math.sqrt(1d / 3);
-        assertEquals(new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point(0, 0, 1)), "Bad normal to trinagle");
+    void testPointsOnSameLine() {
+        try {
+            new Plane(
+                    new Point(0, 0, 1),
+                    new Point(0, 0, 2),
+                    new Point(0, 0, 3));
+            fail("constructor crated a plane with 3 point on the same line");
+        } catch (IllegalArgumentException e) {
+        }
     }
 
     @Test
     void testGetNormal() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: There is a simple single test here
+        Plane pl = new Plane(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1));
+        assertEquals(new Vector(1, 1, 1), pl.getNormal(new Point(0, 0, 1)), "Bad normal to plane");
     }
 }

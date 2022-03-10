@@ -32,7 +32,15 @@ public class Plane implements Geometry{
      */
     public Plane(Point p1, Point p2, Point p3){
         q0 = p1;
-        normal = null;
+        try {
+            Vector u = p2.subtract(p1);
+            Vector v = p3.subtract(p1);
+            // if uXv = (0,0,0)
+            Vector n = u.crossProduct(v);
+            normal = n.normalize();
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("can not create a plane if all 3 point are on the same line");
+        }
     }
 
     /**
@@ -50,10 +58,9 @@ public class Plane implements Geometry{
     public Vector getNormal() {
         return normal;
     }
-
     @Override
     public Vector getNormal(Point p) {
-        return null;
+        return normal;
     }
 
     @Override
