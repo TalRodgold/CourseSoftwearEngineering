@@ -40,7 +40,7 @@ public class Ray {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
-        return Objects.equals(p0, ray.p0) && Objects.equals(dir, ray.dir);
+        return p0.equals(ray.p0) && dir.equals(ray.dir);
     }
 
     @Override

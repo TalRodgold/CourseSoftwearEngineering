@@ -95,6 +95,7 @@ public class Vector extends Point{
         return  new Vector(this.xyz.d1 / length, this.xyz.d2 / length, this.xyz.d3 / length);
     }
 
+
     @Override
     public String toString() {
         return "Vector{" +
