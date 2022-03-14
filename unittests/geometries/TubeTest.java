@@ -8,12 +8,15 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TubeTest {
-
+    /**
+     * Checking that there is no 90 degree
+     */
     @Test
     void test90Degree(){
         Ray ray = new Ray(new Point(0,0,0), new Vector(1,0,0));
-        Tube tb = new Tube(ray, 1);
-
+        Point p = new Point(0,0,0);
+        Vector n = new Vector(1,0,0).subtract(p).normalize();
+        assertNotEquals(p,n,"Failed there is 90 degrees angle");
     }
 
     /**
