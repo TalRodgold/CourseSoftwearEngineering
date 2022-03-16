@@ -26,37 +26,33 @@ public class Triangle extends Polygon{
 
     @Override
     public List<Point> findIntsersections(Ray ray) {
-        Point p0 = ray.getP0();
-        Vector v = ray.getDir();
+        Point p0 = ray.getP0(); // get point
+        Vector v = ray.getDir(); // get direction
+        List<Point> trianglePlane = plane.findIntsersections(ray); // get the plane of the triangle
 
-        var result = plane.findIntsersections(ray);
-
-        // if there is no intersections with the plane is a fortiori (kal&homer)
-        // that there is no intersections with the triangle
-        if(result == null){
+        if(trianglePlane == null){ // if there is no intersection between plane and ray then of course there won't be an intersection between ray and triangle
             return null;
         }
 
-        Vector v1 = this.vertices.get(0).subtract(p0),
-                v2 = this.vertices.get(1).subtract(p0),
-                v3 = this.vertices.get(2).subtract(p0);
+        Vector v1 = this.vertices.get(0).subtract(p0);
+        Vector v2 = this.vertices.get(1).subtract(p0);
+        Vector v3 = this.vertices.get(2).subtract(p0);
+        Vector v4 = v1.crossProduct(v2).normalize();
+        Vector v5 = v2.crossProduct(v3).normalize();
+        Vector v6 = v3.crossProduct(v1).normalize();
 
-        Vector n1 = v1.crossProduct(v2).normalize(),
-                n2 = v2.crossProduct(v3).normalize(),
-                n3 = v3.crossProduct(v1).normalize();
-
-        double x1 = alignZero(v.dotProduct(n1)),
-                x2 = alignZero(v.dotProduct(n2)),
-                x3 = alignZero(v.dotProduct(n3));
+        double x1 = alignZero(v.dotProduct(v4));
+        double x2 = alignZero(v.dotProduct(v5));
+        double x3 = alignZero(v.dotProduct(v6));
 
         boolean allNegative = x1 < 0 && x2 < 0 && x3 < 0;
         boolean allPositive = x1 > 0 && x2 > 0 && x3 > 0;
 
         if(allNegative || allPositive){
-            return List.of(result.get(0)); // return the intersections with the plane that the triangle is on
+            return List.of(trianglePlane.get(0)); // return the intersections with the plane that the triangle is on
         }
 
-        return null;
+        return null; // else
     }
 
     @Override

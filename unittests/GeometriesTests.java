@@ -4,16 +4,17 @@ import geometries.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GeometriesTests {
-    Geometries gmo = new Geometries(
-            new Plane(
+            Plane p = new Plane(
                     new Point(-2,0,0),
                     new Point(0,0,4),
-                    new Point(-2,-2,0)),
-            new Sphere(new Point(1, 1, 1),1 ),
-            new Triangle(
+                    new Point(-2,-2,0));
+            Sphere s = new Sphere(new Point(1, 1, 1),1 );
+           Triangle t = new Triangle(
                     new Point(-1,1,0),
                     new Point(-1.5, 0, 0),
-                    new Point(0, 0.5,2)));
+                    new Point(0, 0.5,2));
+    Geometries gmo = new Geometries(p,s,t);
+
 
     // 01 There are no Shapes
     @Test

@@ -69,35 +69,31 @@ public class Plane implements Geometry{
 
     @Override
     public List<Point> findIntsersections(Ray ray) {
-        Point p0 = ray.getP0();
-        Vector v = ray.getDir();
+        Point p0 = ray.getP0(); // get point
+        Vector v = ray.getDir(); // get direction
+        Vector n = normal; // set vector normal
 
-        if(q0.equals(p0)){
+        if(q0.equals(p0)){ //if the ray starting point is on the plane
             return null;
         }
 
-        Vector n = normal;
-
-        // t = n∙(q0 - p0) / n∙v
-        // if t > 0 point as found
-
-        Vector p0_q0 = q0.subtract(p0);
-        double mone = alignZero(n.dotProduct(p0_q0));
-        if (isZero(mone)){ // the starting point of the ray is inside the plane
+        Vector sub = q0.subtract(p0);
+        double ns = alignZero(n.dotProduct(sub)); // normal ∙ sub
+        if (isZero(ns)){ // if the starting point of the ray is on the plane return null
             return null;
         }
 
-        double nv = alignZero(n.dotProduct(v));
-        if(isZero(nv)){ // the ray is vertical on the plane
+        double nv = alignZero(n.dotProduct(v)); // normal ∙ direction
+        if(isZero(nv)){ // if the ray is vertical to the plane and the starting point is on the plane return null
             return null;
         }
 
-        double t = alignZero(mone / nv);
+        double t = alignZero(ns / nv);
 
-        if(t > 0){
+        if(t > 0){ // if t > 0 means intersection exists
             return List.of(ray.getPoint(t));
         }
-        return null;
+        return null; // else
     }
 
 
