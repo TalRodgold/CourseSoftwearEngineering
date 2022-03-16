@@ -1,6 +1,8 @@
 package geometries;
 import primitives.*;
 
+import java.util.List;
+
 /**
  * Class Tube
  */
@@ -41,6 +43,12 @@ public class Tube implements Geometry {
         Vector n = p.subtract(O);
         return n.normalize();    }
 
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Tube{" +
@@ -48,4 +56,5 @@ public class Tube implements Geometry {
                 ", radius=" + radius +
                 '}';
     }
+
 }

@@ -1,5 +1,8 @@
 package geometries;
 import primitives.*;
+import static primitives.Util.*;
+
+import java.util.List;
 
 /**
  * Plane class represents a plane in the space
@@ -63,6 +66,41 @@ public class Plane implements Geometry{
         return normal;
     }
 
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        if(q0.equals(p0)){
+            return null;
+        }
+
+        Vector n = normal;
+
+        // t = n∙(q0 - p0) / n∙v
+        // if t > 0 point as found
+
+        Vector p0_q0 = q0.subtract(p0);
+        double mone = alignZero(n.dotProduct(p0_q0));
+        if (isZero(mone)){ // the starting point of the ray is inside the plane
+            return null;
+        }
+
+        double nv = alignZero(n.dotProduct(v));
+        if(isZero(nv)){ // the ray is vertical on the plane
+            return null;
+        }
+
+        double t = alignZero(mone / nv);
+
+        if(t > 0){
+            return List.of(ray.getPoint(t));
+        }
+        return null;
+    }
+
+
     @Override
     public String toString() {
         return "Plane{" +
@@ -70,4 +108,5 @@ public class Plane implements Geometry{
                 ", normal=" + normal +
                 '}';
     }
+
 }

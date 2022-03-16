@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Class Cylinder which is a type of tube
  */
@@ -40,6 +42,11 @@ public class Cylinder extends Tube{
      */
     public Cylinder(Ray axisRay, double radius) {
         super(axisRay, radius);
+    }
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
     }
 
     @Override
