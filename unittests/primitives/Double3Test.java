@@ -9,7 +9,7 @@ class Double3Test {
      * Checks adding point to a point
      */
     @Test
-    void add() {
+    void testAdd() {
         Double3 d1 = new Double3(1,1,1);
         Double3 d2 = new Double3(2,2,2);
         Double3 d3 = new Double3(3,3,3);
@@ -19,7 +19,7 @@ class Double3Test {
      * Checks subtracting a point from a point
      */
     @Test
-    void subtract() {
+    void testSubtract() {
         Double3 d1 = new Double3(1,1,1);
         Double3 d2 = new Double3(2,2,2);
         Double3 d3 = new Double3(3,3,3);
@@ -30,7 +30,7 @@ class Double3Test {
      * checking multiply Double3 by a number
      */
     @Test
-    void scale() {
+    void testScale() {
         Double3 d1 = new Double3(1,1,1);
         Double3 d2 = new Double3(2,2,2);
         double num = 2;
@@ -41,18 +41,18 @@ class Double3Test {
      * checking reduction of number from Double3
      */
     @Test
-    void reduce() {
+    void testReduce() {
         Double3 d1 = new Double3(1,1,1);
         Double3 d2 = new Double3(2,2,2);
         double num = 2;
-        assertEquals(d2.scale(num), d1, "Reducing double3 by a double Failed");
+        assertEquals(d2.reduce(num), d1, "Reducing double3 by a double Failed");
     }
 
     /**
      * checking product between Double3's
      */
     @Test
-    void product() {
+    void testProduct() {
         Double3 d1 = new Double3(4,4,4);
         Double3 d2 = new Double3(2,2,2);
         Double3 d3 = new Double3(8,8,8);

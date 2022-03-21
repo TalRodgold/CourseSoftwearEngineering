@@ -23,7 +23,7 @@ class VectorTest {
      * multiply vector by number and get correct vector
      */
     @Test
-    void scale() {
+    void testScale() {
         Vector v1 = new Vector(2,3,4);
         Vector v2 = v1.scale(2);
         Vector v3 = new Vector(4,6,8);
@@ -34,7 +34,7 @@ class VectorTest {
      * dot product between 2 vectors and checking for ortogonal vectors which will produce vector 0
      */
     @Test
-    void dotProduct() {
+    void testDotProduct() {
         Vector v1 = new Vector(2,3,4);
         Vector v2 = new Vector(5,6,7);
         Vector v3 = new Vector(1,2,3);
@@ -49,7 +49,7 @@ class VectorTest {
      * and checking for all kinds of edge-cases
      */
     @Test
-    void crossProduct() {
+    void testCrossProduct() {
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(-2, -4, -6);
         Vector v3 = new Vector(0, 3, -2);
@@ -82,7 +82,7 @@ class VectorTest {
      * Length squared of vector
      */
     @Test
-    void lengthSquared() {
+    void testLengthSquared() {
         Vector v1 = new Vector(2,3,4);
         double d = 29;
         assertEquals(v1.lengthSquared(), d, "Length_Squared of Vector Failed");
@@ -92,7 +92,7 @@ class VectorTest {
      * Length of vector
      */
     @Test
-    void length() {
+    void testLength() {
         Vector v1 = new Vector(2,3,6);
         double d = 7;
         assertEquals(v1.length(), d, "Length of Vector Failed");
@@ -102,7 +102,7 @@ class VectorTest {
      * check if normalize really gives correct outcome-the Normal vector
      */
     @Test
-    void normalize() {
+    void testNormalize() {
         Vector v1 = new Vector(2,3,6);
         double num = Math.sqrt((2*2)+(3*3)+(6*6));
         Vector v3 =  new Vector(2/num,3/num,6/num);
@@ -113,7 +113,7 @@ class VectorTest {
      * Add vector to vector and getting correct outcome vector
      */
     @Test
-    void add() {
+    void testAdd() {
         Vector v1 = new Vector(2,2,2);
         Vector v2 = new Vector(3,3,3);
         Vector v3 = new Vector(5,5,5);

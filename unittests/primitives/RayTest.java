@@ -9,7 +9,7 @@ class RayTest {
      * Receiving the correct starting point of the ray
      */
     @Test
-    void getP0() {
+    void testGetP0() {
         Point p = new Point(1,2,3);
         Vector v = new Vector(3,4,5);
         Ray r = new Ray(p,v);
@@ -20,7 +20,7 @@ class RayTest {
      * Receiving the correct direction of the ray
      */
     @Test
-    void getDir() {
+    void testGetDir() {
         Point p = new Point(1,2,3);
         Vector v = new Vector(3,4,5);
         Ray r = new Ray(p,v);

@@ -9,7 +9,7 @@ class PointTest {
      * Adding a vector to a point and getting correct point
      */
     @Test
-    void add() {
+    void testAdd() {
         Point p1 = new Point(1,1,1);
         Vector v1 = new Vector(2,2,2);
         Point p2 = new Point(3,3,3);
@@ -20,7 +20,7 @@ class PointTest {
      * Subtracting a point from a point and getting correct vector
      */
     @Test
-    void subtract() {
+    void testSubtract() {
         Point p1 = new Point(1,1,1);
         Point p2 = new Point(3,3,3);
         Vector v1 = new Vector(2,2,2);
@@ -31,7 +31,7 @@ class PointTest {
      * Distance squared between points
      */
     @Test
-    void distanceSquared() {
+    void testDistanceSquared() {
         Point p1 = new Point(1,1,1);
         Point p2 = new Point(2,2,2);
         double d1 = 3;
@@ -43,7 +43,7 @@ class PointTest {
      * Distance between points
      */
     @Test
-    void distance() {
+    void testDistance() {
         Point p1 = new Point(1,1,1);
         Point p2 = new Point(2,2,2);
         double d1 = 3;

@@ -12,6 +12,9 @@ class PlaneTest {
      */
     @Test
     void testPointsOnSameLine() {
+        // =============== Boundary Values Tests ==================
+
+        // TC10: Points on the same line
         try {
             new Plane(
                     new Point(0, 0, 1),
@@ -30,6 +33,6 @@ class PlaneTest {
         // ============ Equivalence Partitions Tests ==============
         // TC01: There is a simple single test here
         Plane pl = new Plane(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 1));
-        assertEquals(new Vector(1, 1, 1), pl.getNormal(new Point(0, 0, 1)), "Bad normal to plane");
+        assertEquals(new Vector(1/Math.sqrt(3), 1/Math.sqrt(3), 1/Math.sqrt(3)), pl.getNormal(new Point(0, 0, 1)), "Bad normal to plane");
     }
 }
