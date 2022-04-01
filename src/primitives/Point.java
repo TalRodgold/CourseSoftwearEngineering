@@ -29,7 +29,7 @@ public class Point {
     /**
      * new point based on 2 points
      * @param v vector
-     * @return
+     * @return Point
      */
     public Point add(Vector v){
        return new Point(xyz.add(v.xyz));
@@ -38,7 +38,7 @@ public class Point {
     /**
      * new vector based on 2 points
      * @param p point
-     * @return
+     * @return Vector
      */
     public Vector subtract( Point p){
         return new Vector((xyz.subtract(p.xyz)));
@@ -47,7 +47,7 @@ public class Point {
     /**
      * calculate distance sqrt
      * @param p point
-     * @return
+     * @return double
      */
     public double distanceSquared( Point p){
         return ((this.xyz.d1 - p.xyz.d1) * (this.xyz.d1 - p.xyz.d1)) + ((this.xyz.d2 - p.xyz.d2) * (this.xyz.d2 - p.xyz.d2)) + ((this.xyz.d3 - p.xyz.d3) * (this.xyz.d3 - p.xyz.d3));
@@ -56,12 +56,17 @@ public class Point {
     /**
      * calculate distance
      * @param p point
-     * @return
+     * @return double
      */
     public double distance(Point p){
         return Math.sqrt(this.distanceSquared(p));
     }
 
+    public double getX(){return xyz.d1;}
+
+    public double getY(){return xyz.d2;}
+
+    public double getZ(){return xyz.d3;}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -10,6 +10,8 @@ class PointTest {
      */
     @Test
     void testAdd() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: check that when Adding a vector to a point and getting correct point
         Point p1 = new Point(1,1,1);
         Vector v1 = new Vector(2,2,2);
         Point p2 = new Point(3,3,3);
@@ -21,6 +23,7 @@ class PointTest {
      */
     @Test
     void testSubtract() {
+        // TC02: test Subtracting a point from a point and getting correct vector
         Point p1 = new Point(1,1,1);
         Point p2 = new Point(3,3,3);
         Vector v1 = new Vector(2,2,2);
@@ -32,6 +35,7 @@ class PointTest {
      */
     @Test
     void testDistanceSquared() {
+        // TC03: check Distance squared between points
         Point p1 = new Point(1,1,1);
         Point p2 = new Point(2,2,2);
         double d1 = 3;
@@ -44,6 +48,7 @@ class PointTest {
      */
     @Test
     void testDistance() {
+        // TC04: check Distance between points
         Point p1 = new Point(1,1,1);
         Point p2 = new Point(2,2,2);
         double d1 = 3;

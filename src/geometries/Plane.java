@@ -73,7 +73,7 @@ public class Plane implements Geometry{
         Vector v = ray.getDir(); // get direction
         Vector n = normal; // set vector normal
 
-        if(q0.equals(p0)){ //if the ray starting point is on the plane
+        if(q0.equals(p0)){ //if the ray starting point is equal to the plane point (meaning the ray starts on the plane)
             return null;
         }
 
@@ -88,7 +88,7 @@ public class Plane implements Geometry{
             return null;
         }
 
-        double t = alignZero(ns / nv);
+        double t = alignZero(ns / nv); // from presentation 4
 
         if(t > 0){ // if t > 0 means intersection exists
             return List.of(ray.getPoint(t));

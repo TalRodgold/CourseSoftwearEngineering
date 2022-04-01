@@ -12,6 +12,8 @@ class VectorTest {
      */
     @Test
     void testVectorZero() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: test construction of Vector 0
         try { // test zero vector
             new Vector(0, 0, 0);
             out.println("ERROR: zero vector does not throw an exception");
@@ -24,6 +26,7 @@ class VectorTest {
      */
     @Test
     void testScale() {
+        // TC02:test multiply vector by number and get correct vector
         Vector v1 = new Vector(2,3,4);
         Vector v2 = v1.scale(2);
         Vector v3 = new Vector(4,6,8);
@@ -31,10 +34,58 @@ class VectorTest {
     }
 
     /**
+     * Length squared of vector
+     */
+    @Test
+    void testLengthSquared() {
+        // TC03:test Length squared of vector
+        Vector v1 = new Vector(2,3,4);
+        double d = 29;
+        assertEquals(v1.lengthSquared(), d, "Length_Squared of Vector Failed");
+    }
+
+    /**
+     * Length of vector
+     */
+    @Test
+    void testLength() {
+        // TC04: test Length of vector
+        Vector v1 = new Vector(2,3,6);
+        double d = 7;
+        assertEquals(v1.length(), d, "Length of Vector Failed");
+    }
+
+    /**
+     * check if normalize really gives correct outcome-the Normal vector
+     */
+    @Test
+    void testNormalize() {
+        // TC05:check if normalize really gives correct outcome-the Normal vector
+        Vector v1 = new Vector(2,3,6);
+        double num = Math.sqrt((2*2)+(3*3)+(6*6));
+        Vector v3 =  new Vector(2/num,3/num,6/num);
+        assertEquals(v1.normalize(), v3, "Normalize of Vector Failed");
+    }
+
+    /**
+     * Add vector to vector and getting correct outcome vector
+     */
+    @Test
+    void testAdd() {
+        // TC06: Add vector to vector and getting correct outcome vector
+        Vector v1 = new Vector(2,2,2);
+        Vector v2 = new Vector(3,3,3);
+        Vector v3 = new Vector(5,5,5);
+        assertEquals(v1.add(v2), v3, "Add Vector to Vector Failed");
+    }
+
+    /**
      * dot product between 2 vectors and checking for ortogonal vectors which will produce vector 0
      */
     @Test
     void testDotProduct() {
+        // =============== Boundary Values Tests ==================
+        // TC01:test dot product between 2 vectors and checking for ortogonal vectors which will produce vector 0
         Vector v1 = new Vector(2,3,4);
         Vector v2 = new Vector(5,6,7);
         Vector v3 = new Vector(1,2,3);
@@ -50,6 +101,8 @@ class VectorTest {
      */
     @Test
     void testCrossProduct() {
+        // TC02: test cross product between 2 vectors and getting outcome vector
+        //       and checking for all kinds of edge-cases
         Vector v1 = new Vector(1, 2, 3);
         Vector v2 = new Vector(-2, -4, -6);
         Vector v3 = new Vector(0, 3, -2);
@@ -76,48 +129,6 @@ class VectorTest {
         }
 
         assertTrue(!(v.dotProduct(u) < 0), "ERROR: the normalized vector is opposite to the original one");
-    }
-
-    /**
-     * Length squared of vector
-     */
-    @Test
-    void testLengthSquared() {
-        Vector v1 = new Vector(2,3,4);
-        double d = 29;
-        assertEquals(v1.lengthSquared(), d, "Length_Squared of Vector Failed");
-    }
-
-    /**
-     * Length of vector
-     */
-    @Test
-    void testLength() {
-        Vector v1 = new Vector(2,3,6);
-        double d = 7;
-        assertEquals(v1.length(), d, "Length of Vector Failed");
-    }
-
-    /**
-     * check if normalize really gives correct outcome-the Normal vector
-     */
-    @Test
-    void testNormalize() {
-        Vector v1 = new Vector(2,3,6);
-        double num = Math.sqrt((2*2)+(3*3)+(6*6));
-        Vector v3 =  new Vector(2/num,3/num,6/num);
-        assertEquals(v1.normalize(), v3, "Normalize of Vector Failed");
-    }
-
-    /**
-     * Add vector to vector and getting correct outcome vector
-     */
-    @Test
-    void testAdd() {
-        Vector v1 = new Vector(2,2,2);
-        Vector v2 = new Vector(3,3,3);
-        Vector v3 = new Vector(5,5,5);
-        assertEquals(v1.add(v2), v3, "Add Vector to Vector Failed");
     }
 
 }

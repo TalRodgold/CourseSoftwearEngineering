@@ -10,6 +10,8 @@ class RayTest {
      */
     @Test
     void testGetP0() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: test Receiving the correct starting point of the ray
         Point p = new Point(1,2,3);
         Vector v = new Vector(3,4,5);
         Ray r = new Ray(p,v);
@@ -21,6 +23,7 @@ class RayTest {
      */
     @Test
     void testGetDir() {
+        // TC02: test Receiving the correct direction of the ray
         Point p = new Point(1,2,3);
         Vector v = new Vector(3,4,5);
         Ray r = new Ray(p,v);
