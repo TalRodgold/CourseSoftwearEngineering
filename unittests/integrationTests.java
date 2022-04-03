@@ -13,85 +13,91 @@ public class integrationTests {
             new Vector(0, 1, 0))
             .setVPSize(3,3)
             .setVPDistance(2);
-    LinkedList<Ray> rayList = findRaysThroughVpPixels(camera, 3, 3);
+    LinkedList<Ray> rayList = constructListOfRays(camera, 3, 3); // create rays for each pixel
+    // create shapes
     Sphere sphere;
     Plane plane;
     Triangle triangle;
 
-    String sphereErrorMessage = "ERROR: Wrong number of intersections of camera rays with sphere";
-    String planeErrorMessage = "ERROR: Wrong number of intersections of camera rays with plane";
-    String triangleErrorMessage = "ERROR: Wrong number of intersections of camera rays with triangle";
-    private LinkedList<Ray> findRaysThroughVpPixels(Camera camera, int nX, int nY){
-    LinkedList<Ray> rayList = new LinkedList<Ray>();
-    for (int j = 0; j < nY; j++){
-        for (int i = 0; i < nX; i++){
-            rayList.add(camera.constructRay(nX,nY,j,i));
+
+    private LinkedList<Ray> constructListOfRays(Camera camera, int nX, int nY){ // construct a ray for each pixel
+    LinkedList<Ray> rayList = new LinkedList<Ray>(); // new list
+    for (int j = 0; j < nY; j++){ // for every colum
+        for (int i = 0; i < nX; i++){ // for every row
+            rayList.add(camera.constructRay(nX,nY,j,i)); // add ray to list
         }
     }
      return rayList;
     }
 
-    private int countIntersections(LinkedList<Ray> list, Geometry shape){
-        int counter = 0;
-        for (Ray r: list) {
-            if (shape.findIntsersections(r) != null)
-            counter += shape.findIntsersections(r).size();
+    private int countIntersections(LinkedList<Ray> list, Geometry shape){ // count how many rays intersected the shape
+        int counter = 0; // counter
+        for (Ray r: list) { // for each ray in list of rays
+            if (shape.findIntsersections(r) != null) // if there was an intersection
+            counter += shape.findIntsersections(r).size(); // add to counter
         }
-        return counter;
+        return counter; // return number of intersections
     }
 
+    /**
+     * All the cases of camera and sphere intersection
+     */
     @Test
     void testCameraSphereIntersections(){
-        // ** Group: Sphere&Camera integration test cases **//
-        // #1: Camera rays intersects 2 points with sphere
+        // #1: 2 intersection points between camera rays and sphere
         sphere = new Sphere(new Point(0, 0, -3), 1);
-        assertEquals(2,countIntersections(rayList, sphere), sphereErrorMessage);
+        assertEquals(2,countIntersections(rayList, sphere), "ERROR: Wrong number of intersections of camera rays with sphere");
 
-        // #2: Camera rays intersects 18 points with sphere
+        // #2: 18 intersection points between camera rays and sphere
         sphere = new Sphere(new Point(0, 0, -3), 2);
-        assertEquals(18,countIntersections(rayList, sphere),sphereErrorMessage);
+        assertEquals(18,countIntersections(rayList, sphere),"ERROR: Wrong number of intersections of camera rays with sphere");
 
-        // #3: Camera rays intersects 10 points with sphere
+        // #3: 10 intersection points between camera rays and sphere
         sphere = new Sphere(new Point(0, 0, -3), 1.5);
-        assertEquals(10,countIntersections(rayList, sphere),sphereErrorMessage);
+        assertEquals(10,countIntersections(rayList, sphere),"ERROR: Wrong number of intersections of camera rays with sphere");
 
-        // #4: Camera rays intersects 9 points with sphere
+        // #4: 9 intersection points between camera rays and sphere
         sphere = new Sphere(new Point(0, 0, -3), 4);
-        assertEquals(9,countIntersections(rayList, sphere),sphereErrorMessage);
+        assertEquals(9,countIntersections(rayList, sphere),"ERROR: Wrong number of intersections of camera rays with sphere");
 
-        // #5: No camera rays intersection with sphere
+        // #5: 0 intersection points between camera rays and sphere
         sphere = new Sphere(new Point(0, 0, 1), 0.5);
-        assertEquals(0,countIntersections(rayList, sphere),sphereErrorMessage);
+        assertEquals(0,countIntersections(rayList, sphere),"ERROR: Wrong number of intersections of camera rays with sphere");
 
     }
+
+    /**
+     * All the cases of camera and plane intersection
+     */
     @Test
     void testCameraPlaneIntersections(){
-// ** Group: Plane&Camera integration test cases **//
-        // #11: Camera intersects 9 points with plan
+        // #1: 9 intersection points between camera rays and plan
         plane = new Plane(new Point(0, 0, -4), camera.getvTo());
-        assertEquals( 9, countIntersections(rayList, plane),planeErrorMessage);
+        assertEquals( 9, countIntersections(rayList, plane),"ERROR: Wrong number of intersections of camera rays with plane");
 
-        // #12: Camera rays intersects 9 points with plan
+        // #2: 9 intersection points between camera rays and plane
         plane = new Plane(new Point(0, 0, -4), new Vector(new Double3(0, -0.5, 1)));
-        assertEquals( 9, countIntersections(rayList, plane),planeErrorMessage);
+        assertEquals( 9, countIntersections(rayList, plane),"ERROR: Wrong number of intersections of camera rays with plane");
 
-        // #13: Camera rays intersects 6 points with plan
+        // #3: 6 intersection points between camera rays and plan
         plane = new Plane(new Point(0, 0, -4), new Vector(new Double3(0, -2, 1)));
-        assertEquals( 6, countIntersections(rayList, plane),planeErrorMessage);
+        assertEquals( 6, countIntersections(rayList, plane),"ERROR: Wrong number of intersections of camera rays with plane");
     }
+    /**
+     * All the cases of camera and triangle intersection
+     */
     @Test
     void testCameraTriangleIntersections(){
-            // ** Group: Triangle&Camera integration test cases **//
-            // #21: Camera rays intersects 1 points with triangle
+            // #1: 1 intersection points between camera rays and triangle
             triangle = new Triangle(new Point(0, 1, -2),
                     new Point(1, -1, -2),
                     new Point(-1, -1, -2));
-            assertEquals( 1, countIntersections(rayList, triangle),triangleErrorMessage);
+            assertEquals( 1, countIntersections(rayList, triangle),"ERROR: Wrong number of intersections of camera rays with triangle");
 
-            // #22: Camera rays intersects 2 points with triangle
+            // #2: 2 intersection points between camera rays and triangle
             triangle = new Triangle(new Point(0, 20, -2),
                     new Point(1, -1, -2),
                     new Point(-1, -1, -2));
-            assertEquals(2, countIntersections(rayList, triangle),triangleErrorMessage);
+            assertEquals(2, countIntersections(rayList, triangle),"ERROR: Wrong number of intersections of camera rays with triangle");
     }
 }
