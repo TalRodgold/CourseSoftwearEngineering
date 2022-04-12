@@ -52,7 +52,7 @@ public class Sphere implements Geometry{
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
 
-        if(p0.equals(center)){
+        if(p0.equals(center)){ // if p0 equals to center of sphere
             throw new IllegalArgumentException("ray p0 cannot be equals to the center of the sphere");
         }
 
