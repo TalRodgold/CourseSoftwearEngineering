@@ -1,4 +1,5 @@
 package primitives;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -33,6 +34,22 @@ public class Ray {
      */
     public Vector getDir() {
         return dir;
+    }
+
+    public Point findClosestPoint(List<Point> listOfPoints){
+        if (listOfPoints.size() == 0){
+            return null;
+        }
+        if (listOfPoints.size() == 1){
+            return listOfPoints.get(0);
+        }
+        Point closest = listOfPoints.get(0);
+        for (int i = 1; i < listOfPoints.size(); i++) {
+          if (closest.distance(p0) > listOfPoints.get(i).distance(p0)){
+              closest = listOfPoints.get(i);
+          }
+        }
+        return closest;
     }
 
     @Override
