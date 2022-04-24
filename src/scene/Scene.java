@@ -30,7 +30,8 @@ public class Scene {
         return this;
     }
 
-    public void setGeometries(Geometries geometries) {
+    public Scene setGeometries(Geometries geometries) {
         this.geometries = geometries;
+        return this;
     }
 }
