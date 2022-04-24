@@ -20,12 +20,14 @@ public class Scene {
         this.name = name;
     }
 
-    public void setBackground(Color background) {
+    public Scene setBackground(Color background) {   // returning this scene so we can concatenate the object
         this.background = background;
+        return this;
     }
 
-    public void setAmbientLight(AmbientLight ambientLight) {
+    public Scene setAmbientLight(AmbientLight ambientLight) {
         this.ambientLight = ambientLight;
+        return this;
     }
 
     public void setGeometries(Geometries geometries) {

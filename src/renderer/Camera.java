@@ -19,7 +19,7 @@ public class Camera {
     private double height;
     private double distance;
     private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase;
+    private RayTracerBasic rayTracerBasic;
 
     public Camera(Point p01, Vector vTo1, Vector vUp1) { // C-tor for camera
         if (vTo1.dotProduct(vUp1) != 0) { // if they are not orthogonal
@@ -96,12 +96,14 @@ public class Camera {
         this.distance = distance;
     }
 
-    public void setImageWriter(ImageWriter imageWriter) {
+    public Camera setImageWriter(ImageWriter imageWriter) {   // func returning this camera so we can concatenate the object
         this.imageWriter = imageWriter;
+        return this;
     }
 
-    public void setRayTracerBase(RayTracerBase rayTracerBase) {
-        this.rayTracerBase = rayTracerBase;
+    public Camera setRayTracer(RayTracerBasic rayTracerBasic) {
+        this.rayTracerBasic = rayTracerBasic;
+        return this;
     }
 
     public void renderImage(){
@@ -115,7 +117,7 @@ public class Camera {
             throw new MissingResourceException("vRight is null","Camera","vRight");
         if (imageWriter == null)
             throw new MissingResourceException("imageWriter is null","Camera","imageWriter");
-        if (rayTracerBase == null)
+        if (rayTracerBasic == null)
             throw new MissingResourceException("rayTracerBase is null","Camera","rayTracerBase");
 
         int Nx = imageWriter.getNx();
@@ -148,19 +150,9 @@ public class Camera {
         imageWriter.writeToImage();
     }
 
-    private void castRay(int nX, int nY, int col, int row) {
-        Color pixelColor;
-        if(_antiAliasing == 1){
-            Ray ray = Camera.
-            Ray ray = Camera.constructRayThroughPixel(nX, nY, col, row);
-            pixelColor = rayTracer.traceRay(ray);
-        }
-        else{
-            var rays = _camera.constructBeanOfRaysThroughPixel(nX, nY, col, row, _antiAliasing);
-            pixelColor = castBean(rays);
-        }
-
-        _imageWriter.writePixel(col, row, pixelColor);
+    private Color castRay(int nX, int nY, int col, int row) {
+        Ray ray = constructRay(nX, nY, col, row);   // castRay func will create a ray and will figure the color using traceRay func
+        return rayTracerBasic.traceRay(ray);
     }
 
 
