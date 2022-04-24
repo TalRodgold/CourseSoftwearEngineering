@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Geometries implements Intersectable{
     }
 
     public void add(Intersectable... geometries){
-
+    this.inter.addAll(Arrays.asList(geometries));
     }
 
     @Override

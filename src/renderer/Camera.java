@@ -152,6 +152,7 @@ public class Camera {
 
     private Color castRay(int nX, int nY, int col, int row) {
         Ray ray = constructRay(nX, nY, col, row);   // castRay func will create a ray and will figure the color using traceRay func
+       imageWriter.writePixel(col, row, rayTracerBasic.traceRay(ray));
         return rayTracerBasic.traceRay(ray);
     }
 
