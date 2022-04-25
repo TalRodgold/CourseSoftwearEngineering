@@ -11,7 +11,7 @@ import static primitivesTests.Util.alignZero;
 import static primitivesTests.Util.isZero;
 
 public class Camera {
-    private Point p0; // Camera's fields
+    private Point p0; // Camera's field's
     private Vector vTo;
     private Vector vUp;
     private Vector vRight;
