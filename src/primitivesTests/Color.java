@@ -1,4 +1,4 @@
-package primitives;
+package primitivesTests;
 
 /**
  * Wrapper class for java.jwt.Color The constructors operate with any

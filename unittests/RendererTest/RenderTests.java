@@ -4,8 +4,8 @@ package RendererTest;
 import org.junit.jupiter.api.Test;
 
 import lighting.AmbientLight;
-import geometries.*;
-import primitives.*;
+import geometriesTests.*;
+import primitivesTests.*;
 import renderer.*;
 import scene.Scene;
 

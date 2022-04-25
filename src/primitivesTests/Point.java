@@ -1,5 +1,4 @@
-package primitives;
-import java.util.Objects;
+package primitivesTests;
 
 /**
  *  This class will serve all primitive classes based on a point

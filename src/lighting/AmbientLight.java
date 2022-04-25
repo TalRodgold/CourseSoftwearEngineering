@@ -1,7 +1,7 @@
 package lighting;
 
-import primitives.Color;
-import primitives.Double3;
+import primitivesTests.Color;
+import primitivesTests.Double3;
 
 public class AmbientLight {
 

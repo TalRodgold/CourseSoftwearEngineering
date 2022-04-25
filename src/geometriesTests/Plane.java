@@ -1,6 +1,6 @@
-package geometries;
-import primitives.*;
-import static primitives.Util.*;
+package geometriesTests;
+import primitivesTests.*;
+import static primitivesTests.Util.*;
 
 import java.util.List;
 

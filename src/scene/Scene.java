@@ -1,8 +1,8 @@
 package scene;
 
-import geometries.Geometries;
+import geometriesTests.Geometries;
 import lighting.AmbientLight;
-import primitives.Color;
+import primitivesTests.Color;
 
 public class Scene {
 
@@ -20,18 +20,18 @@ public class Scene {
         this.name = name;
     }
 
-    public Scene setBackground(Color background) {   // returning this scene so we can concatenate the object
+    public Scene setBackground(Color background) {
         this.background = background;
-        return this;
+        return this; // returning this scene so we can concatenate the object
     }
 
     public Scene setAmbientLight(AmbientLight ambientLight) {
         this.ambientLight = ambientLight;
-        return this;
+        return this; // returning this scene so we can concatenate the object
     }
 
     public Scene setGeometries(Geometries geometries) {
         this.geometries = geometries;
-        return this;
+        return this; // returning this scene so we can concatenate the object
     }
 }

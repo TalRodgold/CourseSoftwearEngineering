@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
-import primitives.*;
-import geometries.*;
+import primitivesTests.*;
+import geometriesTests.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GeometriesTests {

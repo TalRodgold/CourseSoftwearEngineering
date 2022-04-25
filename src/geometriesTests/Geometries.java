@@ -1,9 +1,8 @@
-package geometries;
+package geometriesTests;
 
-import primitives.Point;
-import primitives.Ray;
+import primitivesTests.Point;
+import primitivesTests.Ray;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

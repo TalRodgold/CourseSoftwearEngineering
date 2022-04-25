@@ -1,14 +1,14 @@
 package renderer;
 
-import primitives.Color;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitivesTests.Color;
+import primitivesTests.Point;
+import primitivesTests.Ray;
+import primitivesTests.Vector;
 
 import java.util.MissingResourceException;
 
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+import static primitivesTests.Util.alignZero;
+import static primitivesTests.Util.isZero;
 
 public class Camera {
     private Point p0; // Camera's fields
@@ -63,7 +63,7 @@ public class Camera {
         this.height = height1;
         return this;
     }
-    public Camera setVPDistance(double distance1){
+    public Camera setVPDistance(double distance1){ // calculate the distance
         this.distance = distance1;
         return this;
     }
@@ -133,9 +133,9 @@ public class Camera {
     public void printGrid(int interval, Color color){
         if (imageWriter == null)
             throw new MissingResourceException("imageWriter is null","Camera","imageWriter");
-
+        // define resolution
         int Nx = imageWriter.getNx(), Ny = imageWriter.getNy();
-        for(int i = 0; i < Nx; i++){
+        for(int i = 0; i < Nx; i++){ // create grid
             for(int j = 0; j < Ny; j++){
                 if(i % interval == 0 || j % interval == 0){
                     imageWriter.writePixel(j, i, color);
@@ -145,7 +145,7 @@ public class Camera {
     }
 
     public void writeToImage(){
-        if (imageWriter == null)
+        if (imageWriter == null) // if im
             throw new MissingResourceException("imageWriter is null","Camera","imageWriter");
         imageWriter.writeToImage();
     }

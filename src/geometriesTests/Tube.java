@@ -1,5 +1,5 @@
-package geometries;
-import primitives.*;
+package geometriesTests;
+import primitivesTests.*;
 
 import java.util.List;
 

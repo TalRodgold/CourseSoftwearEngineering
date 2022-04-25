@@ -1,9 +1,9 @@
-package geometries;
+package geometriesTests;
 
 import org.junit.jupiter.api.Test;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitivesTests.Point;
+import primitivesTests.Ray;
+import primitivesTests.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 

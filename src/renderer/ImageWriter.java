@@ -1,6 +1,6 @@
 package renderer;
 
-import primitives.Color;
+import primitivesTests.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

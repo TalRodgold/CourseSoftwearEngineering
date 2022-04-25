@@ -1,6 +1,5 @@
-package primitives;
+package primitivesTests;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * class for a ray

@@ -1,8 +1,7 @@
-package geometries;
+package geometriesTests;
 
 import org.junit.jupiter.api.Test;
-import primitives.*;
-import geometries.*;
+import primitivesTests.*;
 
 import java.util.List;
 

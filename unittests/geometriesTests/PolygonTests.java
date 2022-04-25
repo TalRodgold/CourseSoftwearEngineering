@@ -1,13 +1,12 @@
 /**
  * 
  */
-package geometries;
+package geometriesTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import geometries.*;
-import primitives.*;
+import primitivesTests.*;
 
 /**
  * Testing Polygons
@@ -18,7 +17,7 @@ import primitives.*;
 public class PolygonTests {
 
 	/**
-	 * Test method for {@link geometries.Polygon#Polygon(primitives.Point...)}.
+	 * Test method for {@link geometriesTests.Polygon#Polygon(primitivesTests.Point...)}.
 	 */
 	@Test
 	public void testConstructor() {
@@ -67,7 +66,7 @@ public class PolygonTests {
 	}
 
 	/**
-	 * Test method for {@link geometries.Polygon#getNormal(primitives.Point)}.
+	 * Test method for {@link geometriesTests.Polygon#getNormal(primitivesTests.Point)}.
 	 */
 	@Test
 	public void testGetNormal() {

@@ -1,6 +1,6 @@
-import geometries.*;
+import geometriesTests.*;
 import org.junit.jupiter.api.Test;
-import primitives.*;
+import primitivesTests.*;
 import renderer.Camera;
 import java.util.LinkedList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
