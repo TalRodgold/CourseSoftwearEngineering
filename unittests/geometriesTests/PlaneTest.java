@@ -116,7 +116,7 @@ class PlaneTest {
     //same point which appears as reference point in the plane (q0)
     @Test
     void findIntersections9() {
-        Ray ray = new Ray(plane.q0, new Vector(-0.64,5.6,-1.73));
+        Ray ray = new Ray(plane.getQ0(), new Vector(-0.64,5.6,-1.73));
         assertNull(plane.findIntsersections(ray), "ERROR: number of intersection points is incorrect");
     }
 }

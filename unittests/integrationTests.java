@@ -3,6 +3,7 @@ import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
 import org.junit.jupiter.api.Test;
+import primitives.Double3;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;

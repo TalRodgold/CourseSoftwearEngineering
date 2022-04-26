@@ -2,14 +2,12 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-import primitivesTests.*;
-
 import java.util.List;
 
 /**
  * Class Tube
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
 
     protected Ray axisRay;
     protected double radius;
@@ -51,6 +49,9 @@ public class Tube implements Geometry {
     public List<Point> findIntsersections(Ray ray) {
         return null;
     }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) { return null;}
 
     @Override
     public String toString() {

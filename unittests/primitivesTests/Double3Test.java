@@ -1,6 +1,7 @@
 package primitivesTests;
 
 import org.junit.jupiter.api.Test;
+import primitives.Double3;
 
 import static org.junit.jupiter.api.Assertions.*;
 

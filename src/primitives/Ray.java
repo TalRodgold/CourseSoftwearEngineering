@@ -1,5 +1,6 @@
 package primitives;
 import java.util.List;
+import geometries.Intersectable.GeoPoint;
 
 /**
  * class for a ray
@@ -51,6 +52,21 @@ public class Ray {
         return closest;
     }
 
+    public  GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList){
+        if (geoPointList.size() == 0){
+            return null;
+        }
+        if (geoPointList.size() == 1){
+            return geoPointList.get(0);
+        }
+        GeoPoint closest = geoPointList.get(0);
+        for (int i = 1; i < geoPointList.size(); i++) {
+            if (closest.point.distance(p0) > geoPointList.get(i).point.distance(p0)){
+                closest = geoPointList.get(i);
+            }
+        }
+        return closest;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

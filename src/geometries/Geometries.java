@@ -2,12 +2,13 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
+import scene.Scene;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Geometries implements Intersectable{
+public class Geometries extends Intersectable{
     protected List<Intersectable> inter;
 
     public Geometries() {
@@ -35,6 +36,21 @@ public class Geometries implements Intersectable{
             }
         }
         return result;
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> intersections = null;
+        for(var item : inter){
+            List<GeoPoint>  itemPoints = item.findGeoIntersections(ray);
+            if(itemPoints != null){
+                if(intersections == null){
+                    intersections = new LinkedList();
+                }
+                intersections.addAll(itemPoints);
+            }
+        }
+        return intersections;
     }
 }
 
