@@ -1,7 +1,7 @@
 package renderer;
 
 import primitivesTests.Color;
-import primitivesTests.Ray;
+import primitives.Ray;
 import scene.Scene;
 
 /**

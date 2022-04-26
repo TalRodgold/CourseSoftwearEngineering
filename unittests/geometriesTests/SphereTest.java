@@ -1,7 +1,10 @@
 package geometriesTests;
 
+import geometries.Sphere;
 import org.junit.jupiter.api.Test;
-import primitivesTests.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 

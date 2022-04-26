@@ -1,6 +1,12 @@
+import geometries.Geometries;
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
 import org.junit.jupiter.api.Test;
-import primitivesTests.*;
-import geometriesTests.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GeometriesTests {

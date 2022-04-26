@@ -1,6 +1,11 @@
-import geometriesTests.*;
+import geometries.Geometry;
+import geometries.Plane;
+import geometries.Sphere;
+import geometries.Triangle;
 import org.junit.jupiter.api.Test;
-import primitivesTests.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import renderer.Camera;
 import java.util.LinkedList;
 import static org.junit.jupiter.api.Assertions.assertEquals;

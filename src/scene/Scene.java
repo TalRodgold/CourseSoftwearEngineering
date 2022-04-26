@@ -1,7 +1,8 @@
 package scene;
 
-import geometriesTests.Geometries;
+import geometries.Geometries;
 import lighting.AmbientLight;
+import primitives.Color;
 import primitivesTests.Color;
 
 public class Scene {

@@ -1,14 +1,14 @@
 package renderer;
 
 import primitivesTests.Color;
-import primitivesTests.Point;
-import primitivesTests.Ray;
-import primitivesTests.Vector;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.MissingResourceException;
 
-import static primitivesTests.Util.alignZero;
-import static primitivesTests.Util.isZero;
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 public class Camera {
     private Point p0; // Camera's field's
@@ -130,7 +130,7 @@ public class Camera {
         }
     }
 
-    public void printGrid(int interval, Color color){
+    public void printGrid(int interval, primitives.Color color){
         if (imageWriter == null)
             throw new MissingResourceException("imageWriter is null","Camera","imageWriter");
         // define resolution

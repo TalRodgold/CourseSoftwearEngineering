@@ -4,9 +4,12 @@
 package geometriesTests;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import geometries.Polygon;
 import org.junit.jupiter.api.Test;
 
-import primitivesTests.*;
+import primitives.Point;
+import primitives.Vector;
 
 /**
  * Testing Polygons
@@ -17,7 +20,7 @@ import primitivesTests.*;
 public class PolygonTests {
 
 	/**
-	 * Test method for {@link geometriesTests.Polygon#Polygon(primitivesTests.Point...)}.
+	 * Test method for {@link Polygon#Polygon(Point...)}.
 	 */
 	@Test
 	public void testConstructor() {
@@ -66,7 +69,7 @@ public class PolygonTests {
 	}
 
 	/**
-	 * Test method for {@link geometriesTests.Polygon#getNormal(primitivesTests.Point)}.
+	 * Test method for {@link Polygon#getNormal(Point)}.
 	 */
 	@Test
 	public void testGetNormal() {

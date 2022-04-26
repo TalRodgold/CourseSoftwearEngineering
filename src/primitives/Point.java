@@ -1,10 +1,11 @@
-package primitivesTests;
+package primitives;
 
 /**
  *  This class will serve all primitive classes based on a point
  */
 public class Point {
 
+    public static final Point ZERO = new Point(0,0,0);
     protected Double3 xyz;
 
     /**

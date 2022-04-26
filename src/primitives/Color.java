@@ -1,4 +1,4 @@
-package primitivesTests;
+package primitives;
 
 /**
  * Wrapper class for java.jwt.Color The constructors operate with any
@@ -9,7 +9,7 @@ package primitivesTests;
  * @author Dan Zilberstein
  */
 public class Color {
-    /**
+	/**
 	 * The internal fields tx`o maintain RGB components as double numbers from 0 to
 	 * whatever...
 	 */
@@ -18,10 +18,9 @@ public class Color {
 	/**
 	 * Black color = (0,0,0)
 	 */
-	public static final Color BLACK = new Color(java.awt.Color.black);
+	public static final Color BLACK = new Color(java.awt.Color.BLACK);
 	public static final Color YELLOW = new Color(java.awt.Color.yellow);
 	public static final Color RED = new Color(java.awt.Color.red);
-	public static final Color BLUE = new Color(java.awt.Color.blue);
 
 	/**
 	 * Default constructor - to generate Black Color (privately)

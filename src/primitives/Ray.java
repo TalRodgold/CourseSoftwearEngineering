@@ -1,4 +1,4 @@
-package primitivesTests;
+package primitives;
 import java.util.List;
 
 /**

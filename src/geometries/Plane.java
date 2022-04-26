@@ -1,6 +1,9 @@
-package geometriesTests;
+package geometries;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import primitivesTests.*;
-import static primitivesTests.Util.*;
+import static primitives.Util.*;
 
 import java.util.List;
 

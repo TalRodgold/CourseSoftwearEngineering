@@ -1,6 +1,9 @@
 package primitivesTests;
 
 import org.junit.jupiter.api.Test;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.Collections;
 import java.util.List;

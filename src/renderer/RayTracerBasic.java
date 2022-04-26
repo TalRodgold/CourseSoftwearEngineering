@@ -1,8 +1,8 @@
 package renderer;
 
 import primitivesTests.Color;
-import primitivesTests.Point;
-import primitivesTests.Ray;
+import primitives.Point;
+import primitives.Ray;
 import scene.Scene;
 
 import java.util.List;

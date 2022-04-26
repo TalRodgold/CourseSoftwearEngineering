@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import renderer.Camera;
-import primitivesTests.*;
 
 /**
  * Testing Camera Class

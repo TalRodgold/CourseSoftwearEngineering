@@ -1,4 +1,4 @@
-package primitivesTests;
+package primitives;
 
 /**
  * class for vector

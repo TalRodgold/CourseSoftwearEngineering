@@ -1,4 +1,7 @@
-package geometriesTests;
+package geometries;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 import primitivesTests.*;
 
 import java.util.List;

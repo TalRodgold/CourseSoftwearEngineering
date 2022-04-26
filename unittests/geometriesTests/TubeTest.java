@@ -1,9 +1,10 @@
 package geometriesTests;
 
+import geometries.Tube;
 import org.junit.jupiter.api.Test;
-import primitivesTests.Point;
-import primitivesTests.Ray;
-import primitivesTests.Vector;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 

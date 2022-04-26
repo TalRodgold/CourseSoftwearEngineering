@@ -1,7 +1,7 @@
-package geometriesTests;
+package geometries;
 
-import primitivesTests.Point;
-import primitivesTests.Vector;
+import primitives.Point;
+import primitives.Vector;
 
 /**
  * Interface for all geometries with one func
