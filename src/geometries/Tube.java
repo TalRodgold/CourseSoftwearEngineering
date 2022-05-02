@@ -45,11 +45,6 @@ public class Tube extends Geometry {
         return n.normalize();    }
 
 
-   /* @Override
-    public List<Point> findIntsersections(Ray ray) {
-        return null;
-    }
-*/
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) { return null;}
 
@@ -60,5 +55,4 @@ public class Tube extends Geometry {
                 ", radius=" + radius +
                 '}';
     }
-
 }

@@ -11,16 +11,33 @@ public class SpotLight extends PointLight{
     private Vector direction;
     private double narrowBeam = 1d;
 
+    /**
+     * constructor. sending to father and normalizing the vector
+     * @param intensity = Color
+     * @param position = Point
+     * @param direction = Vector
+     */
     public SpotLight(Color intensity, Point position , Vector direction) {
         super(intensity, position);
         this.direction = direction.normalize();
     }
 
+    /**
+     * Bonus! setter builder pattern
+     * @param narrowBeam = double
+     * @return
+     */
     public SpotLight setNarrowBeam(double narrowBeam) {
         this.narrowBeam = narrowBeam;
         return this;
     }
 
+    /**
+     *
+     * @param p = Point
+     * @return intensity according to Point.
+     * narrowbeam is bonus!
+     */
     @Override
     public Color getIntensity(Point p) {
         double dotProduct = alignZero(direction.dotProduct(super.getL(p)));

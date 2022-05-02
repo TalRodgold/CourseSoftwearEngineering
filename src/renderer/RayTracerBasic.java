@@ -10,14 +10,30 @@ import static primitives.Util.alignZero;
 import primitives.Color;
 
 public class RayTracerBasic extends RayTracerBase{
+    /**
+     * C-tor calls father RayTracerBase
+     * @param scene = Scene
+     */
     public RayTracerBasic(Scene scene) {
         super(scene);
     }
-    
+
+    /**
+     *
+     * @param intersection = GeoPoint
+     * @param ray = Ray
+     * @return color of ambient light after adding color according to intersection and ray
+     */
     private Color calcColor(GeoPoint intersection, Ray ray){
         return scene.ambientLight.getIntensity().add(intersection.geometry.getEmission()).add(calcLocalEffects(intersection, ray));
     }
 
+    /**
+     * took from presentation in moodle
+     * @param intersection = GeoPoint
+     * @param ray = Ray
+     * @return color while calculating the diffusive and specular effects
+     */
     private Color calcLocalEffects(Intersectable.GeoPoint intersection, Ray ray) {
         Vector v = ray.getDir();
         Vector n = intersection.geometry.getNormal(intersection.point);
@@ -44,10 +60,10 @@ public class RayTracerBasic extends RayTracerBase{
 
     /**
      * Calculates diffusive light
-     * @param kd
-     * @param l
-     * @param n
-     * @param lightIntensity
+     * @param kd = Double3
+     * @param l = Vector
+     * @param n = Vector
+     * @param lightIntensity = Color
      * @return The color of diffusive effects
      */
     private Color calcDiffusive(Double3 kd, Vector l, Vector n, Color lightIntensity) {
@@ -59,12 +75,12 @@ public class RayTracerBasic extends RayTracerBase{
 
     /**
      * Calculate specular light
-     * @param ks
-     * @param l
-     * @param n
-     * @param v
-     * @param nShininess
-     * @param lightIntensity
+     * @param ks = Double3
+     * @param l = Vector
+     * @param n = Vector
+     * @param v = Vector
+     * @param nShininess = int
+     * @param lightIntensity = Color
      * @return The color of specular reflection
      */
     private Color calcSpecular(Double3 ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
@@ -76,6 +92,11 @@ public class RayTracerBasic extends RayTracerBase{
         return lightIntensity.scale(ks.scale(vr));
     }
 
+    /**
+     *
+     * @param ray = Ray
+     * @return color of closest point to p0
+     */
     public Color traceRay(Ray ray){
         List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray); // Looking for intersections between the scene and the ray
         if(intersections == null)
