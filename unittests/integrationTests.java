@@ -39,8 +39,8 @@ public class integrationTests {
     private int countIntersections(LinkedList<Ray> list, Geometry shape){ // count how many rays intersected the shape
         int counter = 0; // counter
         for (Ray r: list) { // for each ray in list of rays
-            if (shape.findIntsersections(r) != null) // if there was an intersection
-            counter += shape.findIntsersections(r).size(); // add to counter
+            if (shape.findIntersections(r) != null) // if there was an intersection
+            counter += shape.findIntersections(r).size(); // add to counter
         }
         return counter; // return number of intersections
     }

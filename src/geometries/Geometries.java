@@ -23,7 +23,7 @@ public class Geometries extends Intersectable{
     this.inter.addAll(Arrays.asList(geometries));
     }
 
-    @Override
+/*    @Override
     public List<Point> findIntsersections(Ray ray) {
         List<Point> result = null; // create a list of points for the result intersections
         for(var item : inter){ // for each obj in inter run find intersections
@@ -36,7 +36,7 @@ public class Geometries extends Intersectable{
             }
         }
         return result;
-    }
+    }*/
 
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {

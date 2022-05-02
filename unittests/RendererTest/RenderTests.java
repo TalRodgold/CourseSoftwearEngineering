@@ -1,5 +1,6 @@
 package RendererTest;
 
+import lighting.LightSource;
 import org.junit.jupiter.api.Test;
 
 import lighting.AmbientLight;
@@ -7,7 +8,11 @@ import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
+
+import java.util.List;
+
 import static java.awt.Color.*;
+import static primitives.Util.alignZero;
 
 /**
  * Test rendering a basic image

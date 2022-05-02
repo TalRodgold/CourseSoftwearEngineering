@@ -46,7 +46,7 @@ public class Sphere extends Geometry{
     }
 
 
-    @Override
+   /* @Override
     public List<Point> findIntsersections(Ray ray) {
 
         Point p0 = ray.getP0();
@@ -86,7 +86,7 @@ public class Sphere extends Geometry{
 
         return null;
     }
-
+*/
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0();

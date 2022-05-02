@@ -44,10 +44,10 @@ public class Cylinder extends Tube{
         super(axisRay, radius);
     }
 
-    @Override
+  /*  @Override
     public List<Point> findIntsersections(Ray ray) {
         return null;
-    }
+    }*/
 
     @Override
     public String toString() {

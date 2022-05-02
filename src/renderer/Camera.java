@@ -106,7 +106,7 @@ public class Camera {
         return this;
     }
 
-    public void renderImage(){
+    public Camera renderImage(){
         if (p0 == null)
             throw new MissingResourceException("p0 is null","Camera","p0");
         if (vTo == null)
@@ -128,6 +128,7 @@ public class Camera {
                 castRay(Nx, Ny, j, i);
             }
         }
+        return this;
     }
 
     public void printGrid(int interval, primitives.Color color){

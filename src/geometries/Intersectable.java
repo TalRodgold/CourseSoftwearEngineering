@@ -10,7 +10,12 @@ import java.util.Objects;
  * Interface for all intersections
  */
 public abstract class Intersectable {
-    public abstract List<Point> findIntsersections(Ray ray);
+    public List<Point> findIntersections(Ray ray) {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).toList();
+    }
+
     public List<GeoPoint> findGeoIntersections(Ray ray){
         return findGeoIntersectionsHelper(ray);
     }

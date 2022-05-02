@@ -48,7 +48,7 @@ class PlaneTest {
     @Test
     void findIntersections1() {
         Ray ray = new Ray(new Point(0,-2,0), new Vector(1, 4,-1));
-        List<Point> result = plane.findIntsersections(ray);
+        List<Point> result = plane.findIntersections(ray);
         assertEquals(1, result.size(), "ERROR: number of intersection points is incorrect");
     }
 
@@ -56,7 +56,7 @@ class PlaneTest {
     @Test
     void findIntersections2() {
         Ray ray = new Ray(new Point(0, 5, 0), new Vector(6,-5,0));
-        assertNull(plane.findIntsersections(ray), "ERROR: number of intersection points is incorrect");
+        assertNull(plane.findIntersections(ray), "ERROR: number of intersection points is incorrect");
     }
 
     // =============== Boundary Values Tests ==================
@@ -67,14 +67,14 @@ class PlaneTest {
     @Test
     void findIntersections6() {
         Ray ray = new Ray(new Point(-2.61, 2.64, 2.3), new Vector(0.22,0.26,-0.35));
-        assertNull(plane.findIntsersections(ray), "ERROR: number of intersection points is incorrect");
+        assertNull(plane.findIntersections(ray), "ERROR: number of intersection points is incorrect");
     }
 
     // TC05: Ray is not included in the plane (0 point)
     @Test
     void findIntersections7() {
         Ray ray = new Ray(new Point(5, 0, 0), new Vector(-0.64,-0.2,0.74));
-        assertNull(plane.findIntsersections(ray), "ERROR: number of intersection points is incorrect");
+        assertNull(plane.findIntersections(ray), "ERROR: number of intersection points is incorrect");
     }
 
 
@@ -84,7 +84,7 @@ class PlaneTest {
     @Test
     void findIntersections3() {
         Ray ray = new Ray(new Point(-2.07, 1.95, 0.61), new Vector(2,1,2));
-        List<Point> result = plane.findIntsersections(ray);
+        List<Point> result = plane.findIntersections(ray);
         assertEquals(1, result.size(), "ERROR: number of intersection points is incorrect");
 
     }
@@ -93,14 +93,14 @@ class PlaneTest {
     @Test
     void findIntersections4() {
         Ray ray = new Ray(new Point(-2, 0, 0), new Vector(-1.53,-0.77,-1.53));
-        assertNull(plane.findIntsersections(ray), "ERROR: number of intersection points is incorrect");
+        assertNull(plane.findIntersections(ray), "ERROR: number of intersection points is incorrect");
     }
 
     // TC08: Ray starts on the plane (0 point)
     @Test
     void findIntersections5() {
         Ray ray = new Ray(new Point(0, 0, 1), new Vector(1,0.5,2));
-        assertNull(plane.findIntsersections(ray), "ERROR: number of intersection points is incorrect");
+        assertNull(plane.findIntersections(ray), "ERROR: number of intersection points is incorrect");
     }
 
     // 2 more checks
@@ -109,7 +109,7 @@ class PlaneTest {
     @Test
     void findIntersections8() {
         Ray ray = new Ray(new Point(-0.73, 0, 1.73), new Vector(-0.64,5.6,-1.73));
-        assertNull(plane.findIntsersections(ray), "ERROR: number of intersection points is incorrect");
+        assertNull(plane.findIntersections(ray), "ERROR: number of intersection points is incorrect");
     }
 
     // TC10: Ray is neither orthogonal nor parallel to the plane and begins in the
@@ -117,6 +117,6 @@ class PlaneTest {
     @Test
     void findIntersections9() {
         Ray ray = new Ray(plane.getQ0(), new Vector(-0.64,5.6,-1.73));
-        assertNull(plane.findIntsersections(ray), "ERROR: number of intersection points is incorrect");
+        assertNull(plane.findIntersections(ray), "ERROR: number of intersection points is incorrect");
     }
 }

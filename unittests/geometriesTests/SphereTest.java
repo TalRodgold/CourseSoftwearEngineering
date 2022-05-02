@@ -33,7 +33,7 @@ class SphereTest {
     @Test
     void testFindIntersections1(){
         Ray ray = new Ray(new Point(4, 0, 0), new Vector(-4, 0, 0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertEquals(2, result.size(), "ERROR: number of intersection points is incorrect");
     }
 
@@ -41,7 +41,7 @@ class SphereTest {
     @Test
     void testFindIntersections2(){
         Ray ray = new Ray(new Point(0.5,0,0), new Vector(1.5,0,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertEquals(1, result.size(), "ERROR: number of intersection points is incorrect");
     }
 
@@ -49,7 +49,7 @@ class SphereTest {
     @Test
     void testFindIntersections3() {
         Ray ray = new Ray(new Point(4, 0, 0), new Vector(4, 0, 0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertNull(result, "ERROR: number of intersection points is incorrect");
     }
 
@@ -57,7 +57,7 @@ class SphereTest {
     @Test
     void testFindIntersections4(){
         Ray ray = new Ray(new Point(3,0,0), new Vector(1,0,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertNull(result, "ERROR: number of intersection points is incorrect");
     }
 
@@ -66,7 +66,7 @@ class SphereTest {
     @Test
     void testFindIntersections5(){
         Ray ray = new Ray(new Point(1,1,0), new Vector(2,2,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertNull(result, "ERROR: number of intersection points is incorrect");
     }
 
@@ -74,7 +74,7 @@ class SphereTest {
     @Test
     void testFindIntersections6(){
         Ray ray = new Ray(new Point(0,0,0), new Vector(2,2,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertEquals(1 ,result.size(),"ERROR: number of intersection points is incorrect");
     }
 
@@ -82,7 +82,7 @@ class SphereTest {
     @Test
     void testFindIntersections7(){
         Ray ray = new Ray(new Point(2,0,0), new Vector(2,0,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertNull(result,"ERROR: number of intersection points is incorrect");
     }
 
@@ -90,7 +90,7 @@ class SphereTest {
     @Test
     void testFindIntersections8() {
         Ray ray = new Ray(new Point(0.59, 0, 0), new Vector(-0.59, 0, 0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertEquals(1 ,result.size(),"ERROR: number of intersection points is incorrect");
     }
 
@@ -98,7 +98,7 @@ class SphereTest {
     @Test
     void testFindIntersections9(){
         Ray ray = new Ray(new Point(3,0,0), new Vector(1,0,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertNull(result,"ERROR: number of intersection points is incorrect");
     }
 
@@ -106,14 +106,14 @@ class SphereTest {
     @Test
     void testFindIntersections10(){
         Ray ray = new Ray(new Point(1,0,0), new Vector(2,2,0));
-        assertThrows(IllegalArgumentException.class, ()-> sphere.findIntsersections(ray));
+        assertThrows(IllegalArgumentException.class, ()-> sphere.findIntersections(ray));
     }
 
     // TC12: case where the ray starts on the sphere and goes inside and has 1 intersections
     @Test
     void testFindIntersections11() {
         Ray ray = new Ray(new Point(2, 0, 0), new Vector(-1, 0, 0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertEquals(1 ,result.size(),"ERROR: number of intersection points is incorrect");
     }
 
@@ -121,7 +121,7 @@ class SphereTest {
     @Test
     void testFindIntersections12(){
         Ray ray = new Ray(new Point(0,-2,0), new Vector(2,2,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertEquals(2, result.size());
     }
 
@@ -129,7 +129,7 @@ class SphereTest {
     @Test
     void testFindIntersections13(){
         Ray ray = new Ray(new Point(2,1,1), new Vector(-1,-1,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertNull(result,"ERROR: number of intersection points is incorrect");
     }
 
@@ -137,7 +137,7 @@ class SphereTest {
     @Test
     void testFindIntersections14(){
         Ray ray = new Ray(new Point(1,0,1), new Vector(1,1,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertNull(result,"ERROR: number of intersection points is incorrect");
     }
 
@@ -145,7 +145,7 @@ class SphereTest {
     @Test
     void testFindIntersections15(){
         Ray ray = new Ray(new Point(2,1,1), new Vector(4,4,0));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertNull(result,"ERROR: number of intersection points is incorrect");
     }
 
@@ -153,7 +153,7 @@ class SphereTest {
     @Test
     void testFindIntersections16(){
         Ray ray = new Ray(new Point(3,0,0), new Vector(0,0,1));
-        List<Point> result = sphere.findIntsersections(ray);
+        List<Point> result = sphere.findIntersections(ray);
         assertNull(result,"ERROR: number of intersection points is incorrect");
     }
 }
