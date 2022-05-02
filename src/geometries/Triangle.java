@@ -19,11 +19,21 @@ public class Triangle extends Polygon{
         super(vertices);
     }
 
+    /**
+     * get normal
+     * @param point
+     * @return Vector
+     */
     @Override
     public Vector getNormal(Point point) {
         return super.getNormal(point);
     }
 
+    /**
+     * find Geo Intersections Helper
+     * @param ray
+     * @return List of Geo points
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0(); // get point

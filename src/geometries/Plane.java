@@ -68,7 +68,11 @@ public class Plane extends Geometry{
     }
 
 
-
+    /**
+     * find Geo Intersections Helper
+     * @param ray = Ray
+     * @return
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0(); // get point
@@ -98,7 +102,10 @@ public class Plane extends Geometry{
         return null; // else
     }
 
-
+    /**
+     * to string override
+     * @return
+     */
     @Override
     public String toString() {
         return "Plane{" +

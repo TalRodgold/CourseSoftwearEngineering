@@ -9,7 +9,7 @@ import static primitives.Util.alignZero;
 public class SpotLight extends PointLight{
 
     private Vector direction;
-    private double narrowBeam = 1d;
+    private double narrowBeam = 1d; // for bonus
 
     /**
      * constructor. sending to father and normalizing the vector
@@ -41,10 +41,9 @@ public class SpotLight extends PointLight{
     @Override
     public Color getIntensity(Point p) {
         double dotProduct = alignZero(direction.dotProduct(super.getL(p)));
-        if (dotProduct <= 0)
+        if (dotProduct <= 0) // if dot product is 0 return default black color
             return Color.BLACK;
-        if(narrowBeam!=1)
-            dotProduct= Math.pow(dotProduct,narrowBeam);
+        dotProduct= Math.pow(dotProduct,narrowBeam); // if narrow beam is default won't affect the calc
         return super.getIntensity(p).scale(dotProduct);
     }
 }

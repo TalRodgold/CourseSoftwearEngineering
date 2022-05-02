@@ -22,6 +22,10 @@ public class Tube extends Geometry {
         this.radius = radius;
     }
 
+    /**
+     * get axis of ray
+     * @return
+     */
     public Ray getAxisRay() {
         return axisRay;
     }

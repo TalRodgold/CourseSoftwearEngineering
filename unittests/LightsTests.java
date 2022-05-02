@@ -170,7 +170,7 @@ public class LightsTests {
 		scene2.lights.add(new SpotLight(trCL, trPL, trDL).setkL(0.001).setkQ(0.0001));
 		scene2.lights.add(new PointLight(trCL, new Point(2, 2, 2)));
 		scene2.lights.add(new DirectionalLight(trCL, trDL));
-		ImageWriter imageWriter = new ImageWriter("trianglesSpotExtra", 500, 500);
+		ImageWriter imageWriter = new ImageWriter("trianglesExtra", 500, 500);
 		camera2.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene2)) //
 				.renderImage() //
@@ -190,7 +190,7 @@ public class LightsTests {
 				.add(new PointLight(trCL, new Point(5, 5, 5)));
 		scene1.lights
 				.add(new DirectionalLight(trCL, trDL));
-		ImageWriter imageWriter = new ImageWriter("lightSphereSpotSharpExtra", 500, 500);
+		ImageWriter imageWriter = new ImageWriter("lightSphereExtra", 500, 500);
 		camera1.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene1)) //
 				.renderImage() //

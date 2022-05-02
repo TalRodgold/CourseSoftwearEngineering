@@ -12,12 +12,12 @@ import static primitives.Util.isZero;
 
 public class Camera {
     private Point p0; // Camera's field's
-    private Vector vTo;
-    private Vector vUp;
-    private Vector vRight;
-    private double width;
-    private double height;
-    private double distance;
+    private Vector vTo; // camera to
+    private Vector vUp; // camera up
+    private Vector vRight; // camera right
+    private double width; // width
+    private double height; // height
+    private double distance; //distance
     private ImageWriter imageWriter;
     private RayTracerBasic rayTracerBasic;
 

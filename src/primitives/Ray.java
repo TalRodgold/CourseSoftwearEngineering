@@ -42,8 +42,9 @@ public class Ray {
      * @return calls findClosestGeoPoint
      */
     public Point findClosestPoint(List<Point> points) {
-        return points == null || points.isEmpty() ? null
-                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+        if (points == null || points.isEmpty())
+            return null;
+        else return findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
 
     /**

@@ -45,14 +45,11 @@ public class PointLight extends Light implements LightSource{
      *
      * @param p = Point
      * @return The Intensity/Color according to the distance.
-     * We understood from moodle presentation
+     * from moodle presentation
      */
     @Override
     public Color getIntensity(Point p) {
         double dist = p.distance(position);
-        if(dist <= 0){
-            return getIntensity();
-        }
         return getIntensity().reduce(kC + dist * kL + (dist * dist) * kQ);
     }
 

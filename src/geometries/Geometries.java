@@ -11,19 +11,34 @@ import java.util.List;
 public class Geometries extends Intersectable{
     protected List<Intersectable> inter;
 
+    /**
+     * default constructor
+     */
     public Geometries() {
         this.inter = new LinkedList<Intersectable>();
     }
 
+    /**
+     * constructor
+     * @param geometries
+     */
     public Geometries(Intersectable... geometries){
         this.inter = List.of(geometries);
     }
 
+    /**
+     * adding geo to our list
+     * @param geometries
+     */
     public void add(Intersectable... geometries){
     this.inter.addAll(Arrays.asList(geometries));
     }
 
-
+    /**
+     * Helper func that returns List of Geo points
+     * @param ray = Ray
+     * @return List of Geo points
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> intersections = null;

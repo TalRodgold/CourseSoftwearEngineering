@@ -32,19 +32,37 @@ public class Sphere extends Geometry{
         this.radius = radius;
     }
 
+    /**
+     * get center point
+     * @return
+     */
     public Point getCenter() {
         return center;
     }
 
+    /**
+     * get radius
+     * @return
+     */
     public double getRadius() {
         return radius;
     }
 
+    /**
+     * get normal
+     * @param p = Point
+     * @return vector
+     */
     @Override
     public Vector getNormal(Point p) {
         return p.subtract(center).normalize();
     }
 
+    /**
+     * find Geo Intersections Helper
+     * @param ray = Ray
+     * @return List of Geo points
+     */
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0();
