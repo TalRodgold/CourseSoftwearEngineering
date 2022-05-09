@@ -187,7 +187,7 @@ public class LightsTests {
 		scene1.lights
 				.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setNarrowBeam(10).setkL(0.001).setkQ(0.00004));
 		scene1.lights
-				.add(new PointLight(trCL, new Point(5, 5, 5)));
+				.add(new PointLight(trCL, new Point(10, 10, 70)));
 		scene1.lights
 				.add(new DirectionalLight(trCL, trDL));
 		ImageWriter imageWriter = new ImageWriter("lightSphereExtra", 500, 500);

@@ -31,11 +31,21 @@ public class PointLight extends Light implements LightSource{
         return this;
     }
 
+    /**
+     *
+     * @param kL double
+     * @return PointLight
+     */
     public PointLight setkL(double kL) {
         this.kL = kL;
         return this;
     }
 
+    /**
+     *
+     * @param kQ double
+     * @return PointLight
+     */
     public PointLight setkQ(double kQ) {
         this.kQ = kQ;
         return this;
@@ -62,5 +72,15 @@ public class PointLight extends Light implements LightSource{
     public Vector getL(Point p) {
         Vector dir = p.subtract(position);
         return dir.normalize();
+    }
+
+    /**
+     *
+     * @param p point
+     * @return double
+     */
+    @Override
+    public double getDistance(Point p) {
+        return position.distance(p);
     }
 }

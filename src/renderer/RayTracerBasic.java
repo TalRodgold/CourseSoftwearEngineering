@@ -10,6 +10,8 @@ import static primitives.Util.alignZero;
 import primitives.Color;
 
 public class RayTracerBasic extends RayTracerBase{
+
+    private static final double DELTA = 0.1;
     /**
      * C-tor calls father RayTracerBase
      * @param scene = Scene
@@ -18,6 +20,34 @@ public class RayTracerBasic extends RayTracerBase{
         super(scene);
     }
 
+    /**
+     * function for adding shade based on the presentation
+     * @param gp
+     * @param l
+     * @param n
+     * @return bool
+     */
+    private boolean unshaded(GeoPoint gp, LightSource light, Vector l, Vector n){
+        Vector lightDirection = l.scale(-1); // from point to light source
+        Vector epsVector;
+        if (n.dotProduct(lightDirection) > 0){ // if bigger than 0
+            epsVector = n.scale(DELTA);
+        }
+        else epsVector = n.scale(-DELTA);
+        Point point = gp.point.add(epsVector);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        if (intersections == null){
+            return true;
+        }
+        double dis = light.getDistance(gp.point);
+        for ( var element: intersections) {
+            if (gp.point.distance(element.point) < dis){
+                return false;
+            }
+        }
+        return true;
+    }
     /**
      *
      * @param intersection = GeoPoint
@@ -44,14 +74,18 @@ public class RayTracerBasic extends RayTracerBase{
 
         Double3 kd = intersection.geometry.getMaterial().kD;
         Double3 ks = intersection.geometry.getMaterial().kS;
+
+
         Color color = Color.BLACK;
         for (LightSource lightSource : scene.lights) {
-            Vector l = lightSource.getL(intersection.point);
+            Vector l = lightSource.getL(intersection.point).normalize();
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // checks if nl == nv
-                Color lightIntensity = lightSource.getIntensity(intersection.point);
-                color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-                        calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                if (unshaded(intersection, lightSource, l, n)){
+                    Color lightIntensity = lightSource.getIntensity(intersection.point);
+                    color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                            calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                }
             }
         }
         return color;

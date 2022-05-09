@@ -67,6 +67,12 @@ public class Ray {
         }
         return closest;
     }
+
+    /**
+     *
+     * @param o Object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

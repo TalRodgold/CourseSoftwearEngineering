@@ -43,7 +43,8 @@ public class SpotLight extends PointLight{
         double dotProduct = alignZero(direction.dotProduct(super.getL(p)));
         if (dotProduct <= 0) // if dot product is 0 return default black color
             return Color.BLACK;
-        dotProduct= Math.pow(dotProduct,narrowBeam); // if narrow beam is default won't affect the calc
+        if (narrowBeam != 1)
+            dotProduct= Math.pow(dotProduct,narrowBeam); // if narrow beam is default won't affect the calc
         return super.getIntensity(p).scale(dotProduct);
     }
 }
