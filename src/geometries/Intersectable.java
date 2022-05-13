@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +44,7 @@ public abstract class Intersectable {
     public static class GeoPoint {
         public final Geometry geometry;
         public final Point point;
-
+        public final Vector normal;
         /**
          * Constructor
          * @param geometry = Geometry
@@ -52,6 +53,7 @@ public abstract class Intersectable {
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
             this.point = point;
+            this.normal = this.geometry.getNormal(this.point);
         }
 
         /**

@@ -21,7 +21,7 @@ public class Ray {
         this.dir = dir.normalize();
     }
 
-    public  Ray(Vector d, Point p, Vector n){
+    public  Ray( Point p, Vector d, Vector n){
         double delta = n.dotProduct(d) >= 0d ? DELTA : - DELTA;
         p0 = p.add(n.scale(delta));
         dir = d.normalize();

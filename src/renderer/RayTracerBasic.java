@@ -27,13 +27,13 @@ public class RayTracerBasic extends RayTracerBase {
         super(scene);
     }
 
-   private Ray constructRefractedRay(Point p, Vector v, Vector n){
+  /* private Ray constructRefractedRay(Point p, Vector v, Vector n){
         return new Ray(p.add(n.scale(-DELTA)),v);
     }
 
     private Ray constructReflectedRay(Point p, Vector v, Vector n){
-        return new Ray(p.add(n.scale(DELTA)), v.add(n.scale(-2 * v.dotProduct(n))));
-    }
+        return new Ray(p.add(n.scale(DELTA)), v.subtract(n.scale(2 * v.dotProduct(n))));
+    }*/
 
     private GeoPoint findClosestIntersection(Ray ray) {
         if(ray == null){
@@ -91,7 +91,25 @@ public class RayTracerBasic extends RayTracerBase {
     }
 
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
+
         Color color = Color.BLACK;
+        Vector n = gp.geometry.getNormal(gp.point);
+        Vector v = ray.getDir().subtract(n.scale(ray.getDir().dotProduct(n) * 2));
+        Double3 kr =  gp.geometry.getMaterial().kR;
+        Double3 kkr = kr.product(k);
+        if (kkr.biggerThan(MIN_CALC_COLOR_K)) {
+            color = color.add(calcGlobalEffect(new Ray(gp.point, v, n), level, kr, kkr));
+        }
+        Double3 kt = gp.geometry.getMaterial().kT;
+        Double3 kkt = kt.product(k);
+        if (kkt.biggerThan(MIN_CALC_COLOR_K)) {
+            color = color.add(calcGlobalEffect(new Ray(gp.point, ray.getDir(), n), level, kt, kkt)); //// changed here!!!
+        }
+        return color;
+
+
+
+      /*  Color color = Color.BLACK;
         Double3 kr =  gp.geometry.getMaterial().kR;
         Double3 kkr = kr.product(k);
         if (kkr.biggerThan(MIN_CALC_COLOR_K)) {
@@ -102,7 +120,7 @@ public class RayTracerBasic extends RayTracerBase {
         if (kkt.biggerThan(MIN_CALC_COLOR_K)) {
             color = color.add(calcGlobalEffect(constructRefractedRay(gp.point, ray.getDir(), gp.geometry.getNormal(gp.point)), level, kt, kkt));
         }
-        return color;
+        return color;*/
     }
 
     private Color calcGlobalEffect(Ray ray, int level, Double3 kx, Double3 kkx) {
