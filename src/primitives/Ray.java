@@ -7,6 +7,7 @@ import geometries.Intersectable.GeoPoint;
  */
 public class Ray {
 
+    private static final double DELTA = 0.1;
     private Point p0;
     private Vector dir;
 
@@ -18,6 +19,12 @@ public class Ray {
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
         this.dir = dir.normalize();
+    }
+
+    public  Ray(Vector d, Point p, Vector n){
+        double delta = n.dotProduct(d) >= 0d ? DELTA : - DELTA;
+        p0 = p.add(n.scale(delta));
+        dir = d.normalize();
     }
 
     /**
@@ -53,7 +60,7 @@ public class Ray {
      * @return closest GeoPoint to p0
      */
     public  GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList){
-        if (geoPointList.size() == 0){
+        if (geoPointList == null){
             return null;
         }
         if (geoPointList.size() == 1){
