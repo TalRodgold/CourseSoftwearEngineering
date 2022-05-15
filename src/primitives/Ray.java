@@ -21,6 +21,12 @@ public class Ray {
         this.dir = dir.normalize();
     }
 
+    /**
+     * constructing reflected and refracted ray
+     * @param p Point
+     * @param d Vector
+     * @param n Vector
+     */
     public  Ray( Point p, Vector d, Vector n){
         double delta = n.dotProduct(d) >= 0d ? DELTA : - DELTA;
         p0 = p.add(n.scale(delta));

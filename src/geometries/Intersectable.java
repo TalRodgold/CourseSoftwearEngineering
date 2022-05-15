@@ -44,7 +44,7 @@ public abstract class Intersectable {
     public static class GeoPoint {
         public final Geometry geometry;
         public final Point point;
-        public final Vector normal;
+        public Vector normal;
         /**
          * Constructor
          * @param geometry = Geometry
@@ -53,7 +53,8 @@ public abstract class Intersectable {
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
             this.point = point;
-            this.normal = this.geometry.getNormal(this.point);
+            if(geometry != null)
+                 this.normal = this.geometry.getNormal(this.point);
         }
 
         /**

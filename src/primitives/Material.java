@@ -7,6 +7,9 @@ public class Material {
     public Double3 kD = new Double3(0);
     public Double3 kS = new Double3(0);
     public int nShininess = 0;
+    /**
+     * transparency and reflection
+     */
     public Double3 kT = new Double3(0);
     public Double3 kR = new Double3(0);
 
