@@ -78,7 +78,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @return color of ambient light after adding color according to intersection and ray
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
-        Color color = gp.geometry.getEmission().add(calcLocalEffects(gp, ray)); // do we need to send k?
+        Color color = gp.geometry.getEmission().add(calcLocalEffects(gp, ray, k)); // do we need to send k?
         if (level == 1){
             return color;
         }
@@ -140,8 +140,8 @@ public class RayTracerBasic extends RayTracerBase {
      * @param ray          = Ray
      * @return color while calculating the diffusive and specular effects
      */
-    private Color calcLocalEffects(Intersectable.GeoPoint intersection, Ray ray) {
-        Vector v = ray.getDir();
+    private Color calcLocalEffects(Intersectable.GeoPoint intersection, Ray ray, Double3 k) {
+      /*  Vector v = ray.getDir();
         Vector n = intersection.geometry.getNormal(intersection.point);
         double nv = alignZero(n.dotProduct(v));
         if (nv == 0)
@@ -158,6 +158,30 @@ public class RayTracerBasic extends RayTracerBase {
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // checks if nl == nv
                 if (unshaded(intersection, lightSource, l, n)) {
+                    Color lightIntensity = lightSource.getIntensity(intersection.point);
+                    color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                            calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                }
+            }
+        }
+        return color;*/
+        Vector v = ray.getDir();
+        Vector n = intersection.geometry.getNormal(intersection.point);
+        double nv = alignZero(n.dotProduct(v));
+        if (nv == 0)
+            return Color.BLACK;
+        int nShininess = intersection.geometry.getMaterial().nShininess;
+
+        Double3 kd = intersection.geometry.getMaterial().kD;
+        Double3 ks = intersection.geometry.getMaterial().kS;
+        Color color = Color.BLACK;
+        for (LightSource lightSource : scene.lights) {
+            Vector l = lightSource.getL(intersection.point);
+            double nl = alignZero(n.dotProduct(l));
+            if (nl * nv > 0) { // checks if nl == nv
+                //if (unshaded(intersection,l,n,nv,lightSource)) {
+                Double3 ktr = transparency(intersection, l,lightSource);
+                if (ktr.product(k).biggerThan(MIN_CALC_COLOR_K) ){
                     Color lightIntensity = lightSource.getIntensity(intersection.point);
                     color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                             calcSpecular(ks, l, n, v, nShininess, lightIntensity));
@@ -220,4 +244,31 @@ public class RayTracerBasic extends RayTracerBase {
             return  scene.background;
         return calcColor(closest,ray);
     }
+
+    private Double3 transparency(GeoPoint geoPoint , Vector l, LightSource lightSource ){
+        Vector lightDirection = l.scale(-1); // from point to light source
+        // create a new ray that is sent from point to the light source
+        Ray lightRay = new Ray(geoPoint.point, lightDirection, geoPoint.normal);
+        // check if another geometry is blocking us by finding intersections
+        var intersections = scene.geometries.findGeoIntersections(lightRay);
+
+        if (intersections == null){
+            return new Double3(1); // There is no shadow
+        }
+
+        // the distance from the light source to the point
+        double lightDistance = lightSource.getDistance(geoPoint.point);
+        Double3 ktr = new Double3(1);
+        for (GeoPoint gp : intersections) {
+            if (alignZero(gp.point.distance(geoPoint.point) - lightDistance) <= 0) {
+                ktr = gp.geometry.getMaterial().kT.product(ktr); // The transparency of each intersection
+                if (ktr.lowerThan( MIN_CALC_COLOR_K)){
+                    return new Double3(0); // full shadow
+                }
+            }
+        }
+        return ktr;
+    }
+
+
 }
