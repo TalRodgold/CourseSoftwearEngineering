@@ -105,4 +105,45 @@ public class ReflectionRefractionTests {
 				.renderImage() //
 				.writeToImage();
 	}
+
+	/**
+	 * Produce a picture of a two triangles lighted by a spot light with a partially
+	 * transparent Sphere producing partial shadow
+	 */
+	@Test
+	public void testAll3() {
+
+		Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setVPSize(2500, 2500).setVPDistance(10000); //
+
+		scene.setAmbientLight(new AmbientLight(new Color(white), new Double3(0.15)));
+
+		scene.geometries.add( //
+				new Sphere(new Point(-950, -900, -1000), 400d).setEmission(new Color(8, 5, 10)) //
+						.setMaterial(new Material().setkD(0.25).setkS(0.25).setnShininess(20).setkT(new Double3(0.5))),
+				new Sphere(new Point(-950, -900, -1000), 200d).setEmission(new Color(255,102,102)) //
+						.setMaterial(new Material().setkD(0.25).setkS(0.25).setnShininess(20)),
+				new Triangle(new Point(15000, -1500, -15000), new Point(-15000, 1500, -15000), new Point(6700, 670, 30000)) //
+						.setEmission(new Color(20, 20, 20)) //
+						.setMaterial(new Material().setkR(new Double3(1))),
+				new Triangle(new Point(1500, -15000, -15000), new Point(-1500, 15000, -15000), new Point(670, 6700, 30000)) //
+						.setEmission(new Color(20, 20, 20)) //
+						.setMaterial(new Material().setkR(new Double3(1))),
+				new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) //
+						.setEmission(new Color(20, 20, 20)) //
+						.setMaterial(new Material().setkR(new Double3(1))),
+				new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500),
+						new Point(-1500, -1500, -2000)) //
+						.setEmission(new Color(20, 20, 20)) //
+						.setMaterial(new Material().setkR(new Double3(0.5))));
+
+		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1)) //
+				.setkL(4E-5).setkQ(2E-7));
+
+		ImageWriter imageWriter = new ImageWriter("TalsBeautifulPic", 500, 500);
+		camera.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.renderImage() //
+				.writeToImage();
+	}
 }
