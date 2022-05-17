@@ -107,8 +107,7 @@ public class ReflectionRefractionTests {
 	}
 
 	/**
-	 * Produce a picture of a two triangles lighted by a spot light with a partially
-	 * transparent Sphere producing partial shadow
+	 * Produce a picture with multiple mirrors and 2 spheres
 	 */
 	@Test
 	public void testAll3() {
