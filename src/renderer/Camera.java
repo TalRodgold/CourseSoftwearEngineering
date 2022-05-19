@@ -5,10 +5,11 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
 
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 public class Camera {
     private Point p0; // Camera's field's
@@ -106,7 +107,7 @@ public class Camera {
         return this;
     }
 
-    public Camera renderImage(){
+    public Camera renderImage(int antialiasing){
         if (p0 == null)
             throw new MissingResourceException("p0 is null","Camera","p0");
         if (vTo == null)
@@ -119,13 +120,11 @@ public class Camera {
             throw new MissingResourceException("imageWriter is null","Camera","imageWriter");
         if (rayTracerBasic == null)
             throw new MissingResourceException("rayTracerBase is null","Camera","rayTracerBase");
-
         int Nx = imageWriter.getNx();
         int Ny = imageWriter.getNy();
         for (int i = 0; i < Ny; ++i){
             for (int j = 0; j < Nx; ++j){
-                constructRay(Nx, Ny, j, i);
-                castRay(Nx, Ny, j, i);
+                castRay(Nx, Ny, j, i, antialiasing);
             }
         }
         return this;
@@ -151,14 +150,19 @@ public class Camera {
         imageWriter.writeToImage();
     }
 
-    private Color castRay(int nX, int nY, int col, int row) {
-        Ray ray = constructRay(nX, nY, col, row);   // castRay func will create a ray and will figure the color using traceRay func
-       imageWriter.writePixel(col, row, rayTracerBasic.traceRay(ray));
-        return rayTracerBasic.traceRay(ray);
+    private Color castRay(int nX, int nY, int col, int row, int antialiasing) {
+        List<Ray> ray = constructRay(nX, nY, col, row, antialiasing);// castRay func will create a ray and will figure the color using traceRay func
+        List<Color> colorList = new LinkedList<>();
+        for ( var item : ray) {
+            colorList.add(rayTracerBasic.traceRay(item));
+        }
+        if (rayTracerBasic.traceRay(ray.get(0)).getColor().getRGB() != java.awt.Color.BLACK.getRGB()){
+            int i = 0;
+        }
+        imageWriter.writePixel(col, row, rayTracerBasic.traceRay(ray.get(0)));
+        return avg(colorList);
     }
-
-
-    public Ray constructRay(int nX, int nY, int j, int i) {
+    public List<Ray> constructRay(int nX, int nY, int j, int i, int antialiasing) {
 
         double rY = alignZero(height / nY); //  ratio of height of pixel
         double rX = alignZero(width / nX); // ratio of width of pixel
@@ -173,6 +177,28 @@ public class Camera {
             pIJ = pIJ.add(vUp.scale(yI));
         }
         Vector vIJ = pIJ.subtract(p0); // direction of ray to pixel
-        return new Ray(p0, vIJ);
+        List <Ray> rayList = new LinkedList<>();
+        //imageWriter.writePixel(nX, nY, rayTracerBasic.traceRay(new Ray(p0, vIJ)));
+        rayList.add(new Ray(p0, vIJ));
+        double divNx = rX / 2;
+        double divNy = rY / 2;
+        for (int k = 0; k < antialiasing; k++) {
+            pIJ = pIJ.add(vRight.scale(random(-divNx, divNx)));
+            pIJ = pIJ.add(vUp.scale(random(-divNy, divNy)));
+            vIJ = pIJ.subtract(p0);
+            rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ())));
+        }
+    return rayList;
+    }
+
+    private Color avg(List<Color> list){
+        if (list == null){
+            return null;
+        }
+        Color newColor = list.get(0);
+        for (int i = 1; i < list.size(); i++) {
+            newColor.add(list.get(i));
+        }
+        return  newColor.reduce(list.size());
     }
 }

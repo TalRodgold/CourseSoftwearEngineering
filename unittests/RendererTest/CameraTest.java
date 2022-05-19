@@ -1,3 +1,4 @@
+/*
 package RendererTest;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,19 +10,23 @@ import primitives.Ray;
 import primitives.Vector;
 import renderer.Camera;
 
+*/
 /**
  * Testing Camera Class
  * 
  * @author Dan
  *
- */
+ *//*
+
 class CameraTest {
 	static final Point ZERO_POINT = new Point(0, 0, 0);
 
-	/**
+	*/
+/**
 	 * Test method for
 	 * { elements.Camera#constructRay(int, int, int, int)}.
-	 */
+	 *//*
+
 	@Test
 	void testConstructRay() {
 		Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(10);
@@ -60,3 +65,4 @@ class CameraTest {
 }
 
 }
+*/

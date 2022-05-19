@@ -1,3 +1,4 @@
+/*
 import geometries.Geometry;
 import geometries.Plane;
 import geometries.Sphere;
@@ -45,9 +46,11 @@ public class integrationTests {
         return counter; // return number of intersections
     }
 
-    /**
+    */
+/**
      * All the cases of camera and sphere intersection
-     */
+     *//*
+
     @Test
     void testCameraSphereIntersections(){
         // #1: 2 intersection points between camera rays and sphere
@@ -72,9 +75,11 @@ public class integrationTests {
 
     }
 
-    /**
+    */
+/**
      * All the cases of camera and plane intersection
-     */
+     *//*
+
     @Test
     void testCameraPlaneIntersections(){
         // #1: 9 intersection points between camera rays and plan
@@ -89,9 +94,11 @@ public class integrationTests {
         plane = new Plane(new Point(0, 0, -4), new Vector(new Double3(0, -2, 1)));
         assertEquals( 6, countIntersections(rayList, plane),"ERROR: Wrong number of intersections of camera rays with plane");
     }
-    /**
+    */
+/**
      * All the cases of camera and triangle intersection
-     */
+     *//*
+
     @Test
     void testCameraTriangleIntersections(){
             // #1: 1 intersection points between camera rays and triangle
@@ -107,3 +114,4 @@ public class integrationTests {
             assertEquals(2, countIntersections(rayList, triangle),"ERROR: Wrong number of intersections of camera rays with triangle");
     }
 }
+*/
