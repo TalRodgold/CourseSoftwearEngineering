@@ -153,40 +153,44 @@ public class Camera {
     private Color castRay(int nX, int nY, int col, int row, int antialiasing) {
         List<Ray> ray = constructRay(nX, nY, col, row, antialiasing);// castRay func will create a ray and will figure the color using traceRay func
         List<Color> colorList = new LinkedList<>();
-        for ( var item : ray) {
-            colorList.add(rayTracerBasic.traceRay(item));
-        }
-        if (rayTracerBasic.traceRay(ray.get(0)).getColor().getRGB() != java.awt.Color.BLACK.getRGB()){
+        Color avgColor = rayTracerBasic.traceRay(ray.get(0));
+        for (int p = 1; p < ray.size(); p++)
+            avgColor = avgColor.add(rayTracerBasic.traceRay(ray.get(p)));
+        /*if (rayTracerBasic.traceRay(ray.get(0)).getColor().getRGB() != java.awt.Color.BLACK.getRGB()){
             int i = 0;
-        }
-        imageWriter.writePixel(col, row, rayTracerBasic.traceRay(ray.get(0)));
-        return avg(colorList);
+        }*/
+
+        avgColor = avgColor.scale(1.0/ray.size());
+        imageWriter.writePixel(col, row, avgColor);
+        return avgColor;
     }
     public List<Ray> constructRay(int nX, int nY, int j, int i, int antialiasing) {
 
         double rY = alignZero(height / nY); //  ratio of height of pixel
         double rX = alignZero(width / nX); // ratio of width of pixel
         double xJ = alignZero((j - ((nX - 1d) / 2d)) * rX); // according to slideshow 4
-        double yI = alignZero(-(i - ((nY - 1d) / 2d)) * rY);
+        double yI = alignZero((i - ((nY - 1d) / 2d)) * rY);
 
         Point pIJ = p0.add(vTo.scale(distance));
         if (!isZero(xJ)) {                 // if not 0 then scale and add
             pIJ = pIJ.add(vRight.scale(xJ));
         }
         if (!isZero(yI)) {
-            pIJ = pIJ.add(vUp.scale(yI));
+            pIJ = pIJ.add(vUp.scale(-yI));
         }
         Vector vIJ = pIJ.subtract(p0); // direction of ray to pixel
         List <Ray> rayList = new LinkedList<>();
         //imageWriter.writePixel(nX, nY, rayTracerBasic.traceRay(new Ray(p0, vIJ)));
-        rayList.add(new Ray(p0, vIJ));
+        rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ())));
         double divNx = rX / 2;
         double divNy = rY / 2;
-        for (int k = 0; k < antialiasing; k++) {
+        Point center = pIJ;
+        for (int k = 1; k < antialiasing; k++) {
             pIJ = pIJ.add(vRight.scale(random(-divNx, divNx)));
             pIJ = pIJ.add(vUp.scale(random(-divNy, divNy)));
             vIJ = pIJ.subtract(p0);
             rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ())));
+            pIJ = center;
         }
     return rayList;
     }
