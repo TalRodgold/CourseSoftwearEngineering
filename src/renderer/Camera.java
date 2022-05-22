@@ -189,6 +189,25 @@ public class Camera {
             rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()))); // create ray for each new ray in same pixel
             pIJ = center; // reset center
         }
+       /* if ( antialiasing > 1){
+            double jumpX = rX / antialiasing;
+            double jumpY = rY / antialiasing;
+            for (double k = -divNx; k <= divNx; k += jumpX) { // create antialiasing times rays
+                for (double l = -divNy; l <= divNy; l += jumpY) {
+                    pIJ = pIJ.add(vRight.scale(jumpX * k));
+                    pIJ = pIJ.add(vUp.scale(jumpY * l));
+                    vIJ = pIJ.subtract(p0);
+                    rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()))); // create ray for each new ray in same pixel
+                    pIJ = center; // reset center
+                }
+
+            }
+
+        }
+       */
+
+
+
     return rayList;
     }
 }
