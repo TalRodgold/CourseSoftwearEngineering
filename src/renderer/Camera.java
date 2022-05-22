@@ -152,16 +152,11 @@ public class Camera {
 
     private Color castRay(int nX, int nY, int col, int row, int antialiasing) {
         List<Ray> ray = constructRay(nX, nY, col, row, antialiasing);// castRay func will create a ray and will figure the color using traceRay func
-        List<Color> colorList = new LinkedList<>();
         Color avgColor = rayTracerBasic.traceRay(ray.get(0));
         for (int p = 1; p < ray.size(); p++)
             avgColor = avgColor.add(rayTracerBasic.traceRay(ray.get(p)));
-        /*if (rayTracerBasic.traceRay(ray.get(0)).getColor().getRGB() != java.awt.Color.BLACK.getRGB()){
-            int i = 0;
-        }*/
-
         avgColor = avgColor.scale(1.0/ray.size());
-        imageWriter.writePixel(col, row, avgColor);
+        imageWriter.writePixel(col, row, avgColor); // write the colored pixel
         return avgColor;
     }
     public List<Ray> constructRay(int nX, int nY, int j, int i, int antialiasing) {
@@ -171,6 +166,7 @@ public class Camera {
         double xJ = alignZero((j - ((nX - 1d) / 2d)) * rX); // according to slideshow 4
         double yI = alignZero((i - ((nY - 1d) / 2d)) * rY);
 
+        // for 1 ray
         Point pIJ = p0.add(vTo.scale(distance));
         if (!isZero(xJ)) {                 // if not 0 then scale and add
             pIJ = pIJ.add(vRight.scale(xJ));
@@ -180,29 +176,19 @@ public class Camera {
         }
         Vector vIJ = pIJ.subtract(p0); // direction of ray to pixel
         List <Ray> rayList = new LinkedList<>();
-        //imageWriter.writePixel(nX, nY, rayTracerBasic.traceRay(new Ray(p0, vIJ)));
-        rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ())));
-        double divNx = rX / 2;
-        double divNy = rY / 2;
-        Point center = pIJ;
-        for (int k = 1; k < antialiasing; k++) {
+        rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()))); // create ray for specific pixel
+
+        // for multiple rays
+        double divNx = rX / 2; // divide pixel width by 2
+        double divNy = rY / 2; // divide pixel height by 2
+        Point center = pIJ; // save pixel center
+        for (int k = 1; k < antialiasing; k++) { // create antialiasing times rays
             pIJ = pIJ.add(vRight.scale(random(-divNx, divNx)));
             pIJ = pIJ.add(vUp.scale(random(-divNy, divNy)));
             vIJ = pIJ.subtract(p0);
-            rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ())));
-            pIJ = center;
+            rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()))); // create ray for each new ray in same pixel
+            pIJ = center; // reset center
         }
     return rayList;
-    }
-
-    private Color avg(List<Color> list){
-        if (list == null){
-            return null;
-        }
-        Color newColor = list.get(0);
-        for (int i = 1; i < list.size(); i++) {
-            newColor.add(list.get(i));
-        }
-        return  newColor.reduce(list.size());
     }
 }

@@ -1,4 +1,3 @@
-/*
 import geometries.Geometry;
 import geometries.Plane;
 import geometries.Sphere;
@@ -31,7 +30,7 @@ public class integrationTests {
     LinkedList<Ray> rayList = new LinkedList<Ray>(); // new list
     for (int j = 0; j < nY; j++){ // for every colum
         for (int i = 0; i < nX; i++){ // for every row
-            rayList.add(camera.constructRay(nX,nY,j,i)); // add ray to list
+            rayList.add(camera.constructRay(nX,nY,j,i,1).get(0)); // add ray to list
         }
     }
      return rayList;
@@ -45,11 +44,9 @@ public class integrationTests {
         }
         return counter; // return number of intersections
     }
-
-    */
 /**
      * All the cases of camera and sphere intersection
-     *//*
+     */
 
     @Test
     void testCameraSphereIntersections(){
@@ -74,11 +71,9 @@ public class integrationTests {
         assertEquals(0,countIntersections(rayList, sphere),"ERROR: Wrong number of intersections of camera rays with sphere");
 
     }
-
-    */
 /**
      * All the cases of camera and plane intersection
-     *//*
+     */
 
     @Test
     void testCameraPlaneIntersections(){
@@ -94,10 +89,9 @@ public class integrationTests {
         plane = new Plane(new Point(0, 0, -4), new Vector(new Double3(0, -2, 1)));
         assertEquals( 6, countIntersections(rayList, plane),"ERROR: Wrong number of intersections of camera rays with plane");
     }
-    */
 /**
      * All the cases of camera and triangle intersection
-     *//*
+     */
 
     @Test
     void testCameraTriangleIntersections(){
@@ -114,4 +108,4 @@ public class integrationTests {
             assertEquals(2, countIntersections(rayList, triangle),"ERROR: Wrong number of intersections of camera rays with triangle");
     }
 }
-*/
+
