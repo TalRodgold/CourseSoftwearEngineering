@@ -142,7 +142,7 @@ public class ReflectionRefractionTests {
 		ImageWriter imageWriter = new ImageWriter("TalsBeautifulPic", 500, 500);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
-				.renderImage(1) //
+				.renderImage(9) //
 				.writeToImage();
 	}
 }

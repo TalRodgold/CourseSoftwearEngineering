@@ -4,13 +4,12 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
-
 import static primitives.Util.*;
-
+import java.util.stream.*;
+import renderer.Pixel.*;
 public class Camera {
     private Point p0; // Camera's field's
     private Vector vTo; // camera to
@@ -22,6 +21,12 @@ public class Camera {
     private ImageWriter imageWriter;
     private RayTracerBasic rayTracerBasic;
 
+    /**
+     * Camera
+     * @param p01 p01
+     * @param vTo1 vTo1
+     * @param vUp1 vUp1
+     */
     public Camera(Point p01, Vector vTo1, Vector vUp1) { // C-tor for camera
         if (vTo1.dotProduct(vUp1) != 0) { // if they are not orthogonal
         throw new IllegalArgumentException("Two vectors are not orthogonal");
@@ -31,82 +36,165 @@ public class Camera {
         this.vUp = vUp1.normalize();
         this.vRight = vTo1.crossProduct(vUp1).normalize();
     }
-
+    /**
+     * getP0
+     * @return Point
+     */
     public Point getP0() {
         return p0;
     }  // getters
 
+    /**
+     * getvTo
+     * @return Vector
+     */
     public Vector getvTo() {
         return vTo;
     }
 
+    /**
+     * getvUp
+     * @return Vector
+     */
     public Vector getvUp() {
         return vUp;
     }
 
+    /**
+     * getvRight
+     * @return Vector
+     */
     public Vector getvRight() {
         return vRight;
     }
 
+    /**
+     * getWidth
+     * @return double
+     */
     public double getWidth() {
         return width;
     }
 
+    /**
+     * getHeight
+     * @return double
+     */
     public double getHeight() {
         return height;
     }
 
+    /**
+     * get Distance
+     * @return double
+     */
     public double getDistance() {
         return distance;
     }
+
+    /**
+     *  set VP Size
+     * @param width1 width
+     * @param height1 height
+     * @return Camera
+     */
     public Camera setVPSize(double width1, double height1){  // setters
         this.width = width1;
         this.height = height1;
         return this;
     }
+
+    /**
+     * set VP Distance
+     * @param distance1 distance1
+     * @return Camera
+     */
     public Camera setVPDistance(double distance1){ // calculate the distance
         this.distance = distance1;
         return this;
     }
 
+    /**
+     * set P0
+     * @param p0 p0
+     */
     public void setP0(Point p0) {
         this.p0 = p0;
     }
 
+    /**
+     * set vTo
+     * @param vTo vTo
+     */
     public void setvTo(Vector vTo) {
         this.vTo = vTo;
     }
 
+    /**
+     * set vUp
+     * @param vUp vUp
+     */
     public void setvUp(Vector vUp) {
         this.vUp = vUp;
     }
 
+    /**
+     * set vRight
+     * @param vRight  vRight
+     */
     public void setvRight(Vector vRight) {
         this.vRight = vRight;
     }
 
+    /**
+     * set Width
+     * @param width  width
+     */
     public void setWidth(double width) {
         this.width = width;
     }
 
+    /**
+     * set Height
+     * @param height  height
+     */
     public void setHeight(double height) {
         this.height = height;
     }
 
+    /**
+     *  set Distance
+     * @param distance  distance
+     */
     public void setDistance(double distance) {
         this.distance = distance;
     }
 
+    /**
+     * set image writer
+     * @param imageWriter  image Writer
+     * @return camera
+     */
     public Camera setImageWriter(ImageWriter imageWriter) {   // func returning this camera so we can concatenate the object
         this.imageWriter = imageWriter;
         return this;
     }
 
+    /**
+     * calls ray tracer basic
+     * @param rayTracerBasic rayTracerBasic
+     * @return camera
+     */
     public Camera setRayTracer(RayTracerBasic rayTracerBasic) {
         this.rayTracerBasic = rayTracerBasic;
         return this;
     }
 
+    /**
+     * render the image
+     * @param antialiasing if we want multiple rays for antialiasing
+     * @return camera
+     */
     public Camera renderImage(int antialiasing){
         if (p0 == null)
             throw new MissingResourceException("p0 is null","Camera","p0");
@@ -130,6 +218,11 @@ public class Camera {
         return this;
     }
 
+    /**
+     * print the grid
+     * @param interval interval
+     * @param color color
+     */
     public void printGrid(int interval, primitives.Color color){
         if (imageWriter == null)
             throw new MissingResourceException("imageWriter is null","Camera","imageWriter");
@@ -144,12 +237,24 @@ public class Camera {
         }
     }
 
+    /**
+     *  writing the image to a file
+     */
     public void writeToImage(){
         if (imageWriter == null) // if im
             throw new MissingResourceException("imageWriter is null","Camera","imageWriter");
         imageWriter.writeToImage();
     }
 
+    /**
+     * function for casting the ray to the grid
+     * @param nX num of pixels in width
+     * @param nY  num of pixels in height
+     * @param col length of colum in grid
+     * @param row length of row in grid
+     * @param antialiasing if we want multiple rays for antialiasing
+     * @return color
+     */
     private Color castRay(int nX, int nY, int col, int row, int antialiasing) {
         List<Ray> ray = constructRay(nX, nY, col, row, antialiasing);// castRay func will create a ray and will figure the color using traceRay func
         Color avgColor = rayTracerBasic.traceRay(ray.get(0));
@@ -159,6 +264,16 @@ public class Camera {
         imageWriter.writePixel(col, row, avgColor); // write the colored pixel
         return avgColor;
     }
+
+    /**
+     * func for constructing a ray
+     * @param nX num of pixels in width
+     * @param nY num of pixels in height
+     * @param j colum
+     * @param i row
+     * @param antialiasing if we want multiple rays for antialiasing
+     * @return list of rays
+     */
     public List<Ray> constructRay(int nX, int nY, int j, int i, int antialiasing) {
 
         double rY = alignZero(height / nY); //  ratio of height of pixel
@@ -182,20 +297,13 @@ public class Camera {
         double divNx = rX / 2; // divide pixel width by 2
         double divNy = rY / 2; // divide pixel height by 2
         Point center = pIJ; // save pixel center
-        for (int k = 1; k < antialiasing; k++) { // create antialiasing times rays
-            pIJ = pIJ.add(vRight.scale(random(-divNx, divNx)));
-            pIJ = pIJ.add(vUp.scale(random(-divNy, divNy)));
-            vIJ = pIJ.subtract(p0);
-            rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()))); // create ray for each new ray in same pixel
-            pIJ = center; // reset center
-        }
-       /* if ( antialiasing > 1){
+       if ( antialiasing > 1){
             double jumpX = rX / antialiasing;
             double jumpY = rY / antialiasing;
             for (double k = -divNx; k <= divNx; k += jumpX) { // create antialiasing times rays
                 for (double l = -divNy; l <= divNy; l += jumpY) {
-                    pIJ = pIJ.add(vRight.scale(jumpX * k));
-                    pIJ = pIJ.add(vUp.scale(jumpY * l));
+                    pIJ = pIJ.add(vRight.scale(k));
+                    pIJ = pIJ.add(vUp.scale(l));
                     vIJ = pIJ.subtract(p0);
                     rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()))); // create ray for each new ray in same pixel
                     pIJ = center; // reset center
@@ -204,9 +312,6 @@ public class Camera {
             }
 
         }
-       */
-
-
 
     return rayList;
     }
