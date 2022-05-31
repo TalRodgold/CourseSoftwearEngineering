@@ -1,5 +1,4 @@
 package renderer;
-
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
@@ -8,8 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
 import static primitives.Util.*;
-import java.util.stream.*;
-import renderer.Pixel.*;
+
 public class Camera {
     private Point p0; // Camera's field's
     private Vector vTo; // camera to
@@ -20,7 +18,10 @@ public class Camera {
     private double distance; //distance
     private ImageWriter imageWriter;
     private RayTracerBasic rayTracerBasic;
-
+   // for improvements
+    private static final double ANTIALIASING = 0.00000000001;
+    private static final boolean SUPER_SAMPLING = true;
+    private static final boolean THREADS = false;
     /**
      * Camera
      * @param p01 p01
@@ -192,10 +193,9 @@ public class Camera {
 
     /**
      * render the image
-     * @param antialiasing if we want multiple rays for antialiasing
      * @return camera
      */
-    public Camera renderImage(int antialiasing){
+    public Camera renderImage(){
         if (p0 == null)
             throw new MissingResourceException("p0 is null","Camera","p0");
         if (vTo == null)
@@ -210,9 +210,22 @@ public class Camera {
             throw new MissingResourceException("rayTracerBase is null","Camera","rayTracerBase");
         int Nx = imageWriter.getNx();
         int Ny = imageWriter.getNy();
-        for (int i = 0; i < Ny; ++i){
-            for (int j = 0; j < Nx; ++j){
-                castRay(Nx, Ny, j, i, antialiasing);
+        if (THREADS){
+            Pixel.initialize(Ny, Nx, 1);
+            int threadsCount = 4;
+            while (threadsCount-- > 0) {
+                new Thread(() -> {
+                    for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+                        castRay(Nx, Ny, pixel.col, pixel.row);
+                }).start();
+            }
+            Pixel.waitToFinish();
+        }
+        else {
+            for (int i = 0; i < Ny; ++i){
+                for (int j = 0; j < Nx; ++j){
+                    castRay(Nx, Ny, j, i);
+                }
             }
         }
         return this;
@@ -252,17 +265,31 @@ public class Camera {
      * @param nY  num of pixels in height
      * @param col length of colum in grid
      * @param row length of row in grid
-     * @param antialiasing if we want multiple rays for antialiasing
      * @return color
      */
-    private Color castRay(int nX, int nY, int col, int row, int antialiasing) {
-        List<Ray> ray = constructRay(nX, nY, col, row, antialiasing);// castRay func will create a ray and will figure the color using traceRay func
-        Color avgColor = rayTracerBasic.traceRay(ray.get(0));
-        for (int p = 1; p < ray.size(); p++)
-            avgColor = avgColor.add(rayTracerBasic.traceRay(ray.get(p)));
-        avgColor = avgColor.scale(1.0/ray.size());
-        imageWriter.writePixel(col, row, avgColor); // write the colored pixel
-        return avgColor;
+    private Color castRay(int nX, int nY, int col, int row) {
+       // System.out.println(col + "," + row);
+        Color color;
+        if (SUPER_SAMPLING){
+            color = superSampling(nX, nY, col, row, getCenterOfPixel(nX, nY, col, row), 1);// castRay func will create a ray and will figure the color using traceRay func
+        }
+        else {
+            color = rayTracerBasic.traceRay(constructRay(nX,nY,col,row));
+        }
+        imageWriter.writePixel(col, row, color);
+        return color;
+    /*  else {
+            List<Color> colors = constructRay(nX, nY, col, row, antialiasing);// castRay func will create a ray and will figure the color using traceRay func
+        }
+        Color avgColor = colors.get(0);
+        for (int p = 1; p < colors.size(); p++)
+            avgColor = avgColor.add(colors.get(p));
+        avgColor = avgColor.scale(1.0/4colors.size());
+        // write the colored pixel*/
+
+
+       // Color color = rayTracerBasic.traceRay(constructRay(nX,nY,col,row));
+
     }
 
     /**
@@ -271,10 +298,10 @@ public class Camera {
      * @param nY num of pixels in height
      * @param j colum
      * @param i row
-     * @param antialiasing if we want multiple rays for antialiasing
      * @return list of rays
-     */
-    public List<Ray> constructRay(int nX, int nY, int j, int i, int antialiasing) {
+    */
+
+    public Ray constructRay(double nX, double nY, int j, int i) {
 
         double rY = alignZero(height / nY); //  ratio of height of pixel
         double rX = alignZero(width / nX); // ratio of width of pixel
@@ -290,10 +317,10 @@ public class Camera {
             pIJ = pIJ.add(vUp.scale(-yI));
         }
         Vector vIJ = pIJ.subtract(p0); // direction of ray to pixel
-        List <Ray> rayList = new LinkedList<>();
-        rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()))); // create ray for specific pixel
+      /*  List <Ray> rayList = new LinkedList<>();
+        rayList.add(new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()))); // create ray for specific pixel*/
 
-        // for multiple rays
+       /* // for multiple rays
         double divNx = rX / 2; // divide pixel width by 2
         double divNy = rY / 2; // divide pixel height by 2
         Point center = pIJ; // save pixel center
@@ -311,8 +338,85 @@ public class Camera {
 
             }
 
-        }
+        }*/
+        return new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()));
 
-    return rayList;
+       /* List<Color> colorList = new LinkedList<>();
+        colorList.add(rayTracerBasic.traceRay((rayList.get(0))));
+
+    return supersampling(rX, rY, i, j, pIJ, rayList, colorList);*/
+    }
+
+    private Point getCenterOfPixel(double nX, double nY, int j, int i){
+        // calculate the ratio of the pixel by the height and by the width of the view plane
+        // the ratio Ry = h/Ny, the height of the pixel
+        double rY = alignZero(height / nY);
+        // the ratio Rx = w/Nx, the width of the pixel
+        double rX = alignZero(width / nX);
+
+        // Xj = (j - (Nx -1)/2) * Rx
+        double xJ = alignZero((j - ((nX - 1d) / 2d)) * rX);
+        // Yi = -(i - (Ny - 1)/2) * Ry
+        double yI = alignZero(- (i - ((nY - 1d) / 2d)) * rY);
+
+        Point pIJ = p0;
+
+        if (xJ != 0d) {
+            pIJ = pIJ.add(vRight.scale(xJ));
+        }
+        if (yI != 0d) {
+            pIJ = pIJ.add(vUp.scale(yI));
+        }
+        return pIJ;
+    }
+
+    private Color superSampling(double nX, double nY, int i, int j, Point pIJ, int size){
+        Ray centerRay = constructRay(nX, nY, i, j);
+        Color centerColor = rayTracerBasic.traceRay(centerRay);
+        if (nX < ANTIALIASING || nY < ANTIALIASING){
+            return centerColor;
+        }
+        List<Ray> rayList = new LinkedList<>();
+        List<Color> colorList = new LinkedList<>();
+        Color c = centerColor;
+        rayList.add(Helper(-nX, -nY, pIJ));
+        rayList.add(Helper(nX, nY, pIJ));
+        rayList.add(Helper(-nX, nY, pIJ));
+        rayList.add(Helper(nX, -nY, pIJ));
+        for (int t = 0; t < 4; t++){
+            colorList.add(rayTracerBasic.traceRay((rayList.get(t))));
+        }
+        for (int k = 0; k<4;k++) {
+            if (!centerColor.equals(colorList.get(k))) {
+                if (k == 0) {
+                    c.add(superSampling(-nX / 2, -nY / 2, i, j, getCenterOfPixel(-nX / 2, -nY / 2, i, j), ++size).reduce(5));
+                }
+                if (k == 1) {
+                    c.add(superSampling(nX / 2, nY / 2, i, j, getCenterOfPixel(nX / 2, nY / 2, i, j), ++size).reduce(5));
+                }
+                if (k == 2) {
+                    c.add(superSampling(-nX / 2, nY / 2, i, j, getCenterOfPixel(-nX / 2, nY / 2, i, j), ++size).reduce(5));
+                }
+                if (k == 3) {
+                    c.add(superSampling(nX / 2, -nY / 2, i, j, getCenterOfPixel(nX / 2, -nY / 2, i, j), ++size).reduce(5));
+                }
+            }
+            else {
+                c.add(colorList.get(k).reduce(5));
+            }
+        }
+        return c;
+    }
+    private Ray Helper (double nX, double nY, Point pIJ){
+        pIJ = pIJ.add(vRight.scale(nX));
+        pIJ = pIJ.add(vUp.scale(nY));
+        if (pIJ.equals(p0)){
+            return (new Ray(p0, new Vector(0.000001,0.000001,0.000001))); // create ray for each new ray in same pixel
+        }
+/*
+        System.out.println(pIJ);
+*/
+        Vector vIJ = pIJ.subtract(p0);
+        return (new Ray(p0, new Vector(vIJ.getX(), vIJ.getY(), vIJ.getZ()))); // create ray for each new ray in same pixel
     }
 }

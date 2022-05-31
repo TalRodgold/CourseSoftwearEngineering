@@ -1,3 +1,4 @@
+/*
 
 package RendererTest;
 
@@ -11,21 +12,25 @@ import primitives.Vector;
 import renderer.Camera;
 
 
+*/
 /**
  * Testing Camera Class
  * 
  * @author Dan
  *
- */
+ *//*
+
 
 class CameraTest {
 	static final Point ZERO_POINT = new Point(0, 0, 0);
 
 
+*/
 /**
 	 * Test method for
 	 * { elements.Camera#constructRay(int, int, int, int)}.
-	 */
+	 *//*
+
 
 	@Test
 	void testConstructRay() {
@@ -66,3 +71,4 @@ class CameraTest {
 
 }
 
+*/

@@ -30,7 +30,7 @@ public class integrationTests {
     LinkedList<Ray> rayList = new LinkedList<Ray>(); // new list
     for (int j = 0; j < nY; j++){ // for every colum
         for (int i = 0; i < nX; i++){ // for every row
-            rayList.add(camera.constructRay(nX,nY,j,i,1).get(0)); // add ray to list
+            rayList.add(camera.constructRay(nX,nY,j,i)); // add ray to list
         }
     }
      return rayList;

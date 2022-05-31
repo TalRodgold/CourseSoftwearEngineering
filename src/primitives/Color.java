@@ -1,6 +1,7 @@
 package primitives;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Wrapper class for java.jwt.Color The constructors operate with any
@@ -123,6 +124,14 @@ public class Color {
 		if (k < 0.0)
 			throw new IllegalArgumentException("Can't scale a color by a negative number");
 		return new Color(rgb.scale(k));
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Color color = (Color) o;
+		return Objects.equals(rgb, color.rgb);
 	}
 
 	/**
